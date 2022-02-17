@@ -1,0 +1,10 @@
+vendor
+build
+composer.phar
+.phpunit.result.cache
+report
+.DS_Store
+.idea/
+_ide_helper.php
+.phpstorm.meta.php
+testbench/
