@@ -1,0 +1,41 @@
+{
+    "name": "kuhdo/laravel-auth0-migrator",
+    "description": "Convert your users database to auth0.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arne Bartelt",
+            "email": "dev@kuhdo.de",
+            "homepage": "https://kuhdo.de"
+        }
+    ],
+    "homepage": "https://github.com/kuhdo/laravel-auth0-migrator",
+    "keywords": ["Laravel", "LaravelAuth0Migrator"],
+    "require": {
+        "illuminate/support": "~9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kuhdo\\LaravelAuth0Migrator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kuhdo\\LaravelAuth0Migrator\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kuhdo\\LaravelAuth0Migrator\\LaravelAuth0MigratorServiceProvider"
+            ],
+            "aliases": {
+                "LaravelAuth0Migrator": "Kuhdo\\LaravelAuth0Migrator\\Facades\\LaravelAuth0Migrator"
+            }
+        }
+    }
+}
