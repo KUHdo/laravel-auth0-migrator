@@ -2,6 +2,10 @@
     "name": "kuhdo/laravel-auth0-migrator",
     "description": "Convert your users database to auth0.",
     "license": "MIT",
+    "keywords": [
+        "Laravel",
+        "LaravelAuth0Migrator"
+    ],
     "authors": [
         {
             "name": "Arne Bartelt",
@@ -10,13 +14,14 @@
         }
     ],
     "homepage": "https://github.com/kuhdo/laravel-auth0-migrator",
-    "keywords": ["Laravel", "LaravelAuth0Migrator"],
     "require": {
         "illuminate/support": "~9"
     },
     "require-dev": {
+        "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "~9.0",
-        "orchestra/testbench": "~9"
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -30,12 +35,23 @@
     },
     "extra": {
         "laravel": {
-            "providers": [
-                "Kuhdo\\LaravelAuth0Migrator\\LaravelAuth0MigratorServiceProvider"
-            ],
             "aliases": {
                 "LaravelAuth0Migrator": "Kuhdo\\LaravelAuth0Migrator\\Facades\\LaravelAuth0Migrator"
-            }
+            },
+            "providers": [
+                "Kuhdo\\LaravelAuth0Migrator\\LaravelAuth0MigratorServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
+        "test": "phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     }
 }
