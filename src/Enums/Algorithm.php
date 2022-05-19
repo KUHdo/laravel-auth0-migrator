@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\Enums;
+namespace KUHdo\LaravelAuth0Migrator\Enums;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;

@@ -1,0 +1,10 @@
+env:
+  - AUTH0_MANAGEMENT_API_TOKEN="meintoken"
+  - AUTH0_DOMAIN="mydomain"
+  - AUTH0__CLIENT_ID="clientid"
+  - AUTH0_CLIENT_SECRET="secret"
+  - AUTH0_AUDIENCE="someidentifier"
+  - AUTH0_YOUR_ORGANIZATION_ID="someorgid"
+providers:
+  - KUHdo\LaravelAuth0Migrator\LaravelAuth0MigratorServiceProvider
+  - Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider

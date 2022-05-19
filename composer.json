@@ -26,25 +26,26 @@
         "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "~9.0",
         "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.2"
+        "pestphp/pest-plugin-laravel": "^1.2",
+        "barryvdh/laravel-ide-helper": "^2.12"
     },
     "autoload": {
         "psr-4": {
-            "Kuhdo\\LaravelAuth0Migrator\\": "src/"
+            "KUHdo\\LaravelAuth0Migrator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Kuhdo\\LaravelAuth0Migrator\\Tests\\": "tests"
+            "KUHdo\\LaravelAuth0Migrator\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "aliases": {
-                "LaravelAuth0Migrator": "Kuhdo\\LaravelAuth0Migrator\\Facades\\LaravelAuth0Migrator"
+                "LaravelAuth0Migrator": "KUHdo\\LaravelAuth0Migrator\\Facades\\LaravelAuth0Migrator"
             },
             "providers": [
-                "Kuhdo\\LaravelAuth0Migrator\\LaravelAuth0MigratorServiceProvider"
+                "KUHdo\\LaravelAuth0Migrator\\LaravelAuth0MigratorServiceProvider"
             ]
         }
     },

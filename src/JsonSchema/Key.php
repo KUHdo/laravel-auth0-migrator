@@ -1,8 +1,8 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\JsonSchema;
+namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
-use Kuhdo\LaravelAuth0Migrator\Enums\Encoding;
+use KUHdo\LaravelAuth0Migrator\Enums\Encoding;
 
 class Key  extends JsonSchema
 {

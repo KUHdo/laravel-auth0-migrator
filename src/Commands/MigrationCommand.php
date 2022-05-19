@@ -1,11 +1,11 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\Commands;
+namespace KUHdo\LaravelAuth0Migrator\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
-use Kuhdo\LaravelAuth0Migrator\LaravelAuth0Migrator;
+use KUHdo\LaravelAuth0Migrator\LaravelAuth0Migrator;
 
 class MigrationCommand extends Command
 {

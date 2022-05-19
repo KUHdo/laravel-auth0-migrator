@@ -1,8 +1,8 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\JsonSchema;
+namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
-use Kuhdo\LaravelAuth0Migrator\Enums\Algorithm;
+use KUHdo\LaravelAuth0Migrator\Enums\Algorithm;
 
 /**
  * A more generic way to provide the users password hash.

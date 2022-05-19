@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\Facades;
+namespace KUHdo\LaravelAuth0Migrator\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

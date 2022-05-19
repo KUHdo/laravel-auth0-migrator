@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator;
+namespace KUHdo\LaravelAuth0Migrator;
 
 use Auth0\SDK\Contract\API\ManagementInterface;
 use Auth0\SDK\Contract\Auth0Interface;
@@ -8,7 +8,7 @@ use Auth0\SDK\Exception\ArgumentException;
 use Auth0\SDK\Exception\NetworkException;
 use Closure;
 use Illuminate\Support\Collection;
-use Kuhdo\LaravelAuth0Migrator\JsonSchema\User as JsonSchemaUser;
+use KUHdo\LaravelAuth0Migrator\JsonSchema\User as JsonSchemaUser;
 use Illuminate\Foundation\Auth\User;
 
 class LaravelAuth0Migrator
@@ -43,6 +43,7 @@ class LaravelAuth0Migrator
      */
     public function requestUsersImport(string $json): string
     {
+        $this->auth0->management()->roles();
         $response = $this->managementApi->jobs()->createImportUsers(
             $json,
             $this->connection,
@@ -62,12 +63,15 @@ class LaravelAuth0Migrator
                 ->emailVerified($user->hasVerifiedEmail())
                 ->givenName($user->first_name)
                 ->name($user->full_name)
-                ->familyName($user->last_name);
-                //->appMetadata(
-                //        ...json_decode($user->settings),
-                //        ...['newsletter' => $user->newletter],
-                //        ...['phone_verified_at' => $user->phone_verified_at]
-                //);
+                ->familyName($user->last_name)
+                ->userMetadata([
+                        ...json_decode($user->settings),
+                        ...['newsletter' => $user->newletter],
+                        ]
+                )
+                ->appMetadata([
+                    'phone_verified_at' => $user->phone_verified_at
+                ]);
         };
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\JsonSchema;
+namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;

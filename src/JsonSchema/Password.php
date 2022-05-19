@@ -1,8 +1,8 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\JsonSchema;
+namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
-use Kuhdo\LaravelAuth0Migrator\Enums\PasswordEncoding;
+use KUHdo\LaravelAuth0Migrator\Enums\PasswordEncoding;
 
 class Password extends JsonSchema
 {

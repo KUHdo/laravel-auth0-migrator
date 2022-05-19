@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuhdo\LaravelAuth0Migrator\JsonSchema;
+namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
 class Email extends JsonSchema
 {
