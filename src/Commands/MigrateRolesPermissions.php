@@ -5,7 +5,7 @@ namespace KUHdo\LaravelAuth0Migrator\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
-use KUHdo\LaravelAuth0Migrator\LaravelAuth0Migrator;
+use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
 class MigrateRolesPermissions extends Command
 {
@@ -18,7 +18,7 @@ class MigrateRolesPermissions extends Command
      */
     protected $description = 'Imports all user identities to auth0 database via management api.';
 
-    public function handle(LaravelAuth0Migrator $migrator): int
+    public function handle(Auth0Migrator $migrator): int
     {
         $count = User::count();
         $this->output->progressStart($count);

@@ -36,13 +36,14 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "KUHdo\\LaravelAuth0Migrator\\Tests\\": "tests"
+            "KUHdo\\LaravelAuth0Migrator\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "aliases": {
-                "LaravelAuth0Migrator": "KUHdo\\LaravelAuth0Migrator\\Facades\\LaravelAuth0Migrator"
+                "LaravelAuth0Migrator": "Auth0Migrator",
+                "Auth0Migrator": "Auth0Migrator"
             },
             "providers": [
                 "KUHdo\\LaravelAuth0Migrator\\LaravelAuth0MigratorServiceProvider"

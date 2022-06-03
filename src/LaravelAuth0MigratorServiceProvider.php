@@ -8,15 +8,14 @@ use Auth0\SDK\Contract\API\ManagementInterface;
 use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Contract\ConfigurableContract;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
-use KUHdo\LaravelAuth0Migrator\Facades\LaravelAuth0Migrator as LaravelAuth0MigratorFacade;
+use KUHdo\LaravelAuth0Migrator\Facades\Auth0Migrator as LaravelAuth0MigratorFacade;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
 
 class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 {
-    const CONFIG_PATH = __DIR__.'/../config/laravel-auth0-migrator.php';
+    protected string $configFilePath = __DIR__.'/../config/auth0-migrator.php';
 
     /**
      * Perform post-registration booting of services.
@@ -25,16 +24,41 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadTranslationsFrom(self::CONFIG_PATH, 'kuhdo');
-        $this->publishes([
-            self::CONFIG_PATH,
-            'laravel-auth0-migrator'
-        ]);
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'kuhdo');
+        $this->publishConfig();
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
+    }
+
+    /**
+     * Console-specific booting.
+     *
+     * @return void
+     */
+    protected function bootForConsole(): void
+    {
+        $this->publishConfig();
+
+        // Registering package commands.
+        $this->commands([
+            MigrationCommand::class,
+            JobStatusCommand::class,
+        ]);
+    }
+
+    /**
+     * Publishing the configuration file.
+     * @return void
+     */
+    protected function publishConfig(): void
+    {
+        $this->publishes(
+            [$this->configFilePath => config_path('auth0-migrator.php')],
+            'config'
+        );
     }
 
     /**
@@ -44,34 +68,31 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(self::CONFIG_PATH, 'laravel-auth0-migrator');
+        $this->mergeConfigFrom($this->configFilePath, 'auth0-migrator');
 
         // Register the service the package provides.
         $this->app->singleton('laravel-auth0-migrator', function ($app) {
-            return new LaravelAuth0Migrator(resolve(Auth0Interface::class));
+            return new Auth0Migrator(resolve(Auth0Interface::class));
         });
-
-        $loader = AliasLoader::getInstance();
-        $loader->alias('Auth0Migrator', LaravelAuth0MigratorFacade::class);
 
         // Shipping config from env vars.
         $this->app->singleton(ConfigurableContract::class, function($app) {
             return new SdkConfiguration(
-                domain: config('auth0.domain'),
-                clientId: config('auth0.client_id'),
-                clientSecret: config('auth0.client_secret'),
+                domain: config('auth0-migrator.auth0.domain'),
+                clientId: config('auth0-migrator.auth0.client_id'),
+                clientSecret: config('auth0-migrator.auth0.client_secret'),
                 /*
                  * The process for retrieving an Access Token for Management API endpoints is described here:
                  * @link https://auth0.com/docs/libraries/auth0-php/using-the-management-api-with-auth0-php
                  */
-                audience: config('auth0.audience'),
-                organization: [ config('auth0.organization') ],
+                audience: [ config('auth0-migrator.auth0.audience')],
+                organization: [ config('auth0-migrator.auth0.organization') ],
             );
         });
 
         // Binding auth0 interface to actual auth0 sdk implementation.
-        $this->app->singleton(Auth0Interface::class, function($app) {
-            return new  Auth0(resolve(ConfigurableContract::class));
+        $this->app->bind(Auth0Interface::class, function($app) {
+            return new Auth0(resolve(ConfigurableContract::class));
         });
 
         /*
@@ -81,18 +102,18 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
          * perform a client credentials exchange to generate one for you, so long as a client secret is configured.
          */
         $this->app->singleton(ManagementInterface::class, function($app) {
-            if (!is_null(config('auth0.management_api_token'))) {
-                $newConfiguration = resolve(Auth0Interface::class)
+            if (!is_null(config('auth0-migrator.auth0.management_api_token'))) {
+                $newConfiguration = $app->make(Auth0Interface::class)
                     ->configuration()
-                    ->setManagementToken(config('auth0.management_api_token'));
+                    ->setManagementToken(config('auth0-migrator.auth0.management_api_token'));
 
                 // Rebinding SDKConfiguration and Auth0Interface with new skd configuration.
                 $this->app->instance(ConfigurableContract::class, $newConfiguration);
-                $newAuth0 = $this->app->makeWith(Auth0Interface::class, $newConfiguration);
+                $newAuth0 = new Auth0($newConfiguration);
                 $this->app->instance(Auth0Interface::class, $newAuth0);
             }
 
-            return  resolve(Auth0Interface::class)->management();
+            return $app->make(Auth0Interface::class)->management();
         });
     }
 
@@ -103,25 +124,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['laravel-auth0-migrator'];
-    }
-
-    /**
-     * Console-specific booting.
-     *
-     * @return void
-     */
-    protected function bootForConsole(): void
-    {
-        // Publishing the configuration file.
-        $this->publishes([
-            __DIR__.'/../config/laravel-auth0-migrator.php' => config_path('laravel-auth0-migrator.php'),
-        ], 'laravel-auth0-migrator.config');
-
-        // Registering package commands.
-        $this->commands([
-            MigrationCommand::class,
-            JobStatusCommand::class,
-        ]);
+        return ['auth0-migrator'];
     }
 }

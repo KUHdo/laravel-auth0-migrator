@@ -11,9 +11,9 @@
 |
 */
 
-use Orchestra\Testbench\TestCase;
+use KUHdo\LaravelAuth0Migrator\Tests\TestCaseWithEnv;
 
-uses(TestCase::class)->in('Feature', 'Unit');
+uses(TestCaseWithEnv::class)->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------

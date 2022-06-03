@@ -3,7 +3,7 @@
 namespace KUHdo\LaravelAuth0Migrator\Commands;
 
 use Illuminate\Console\Command;
-use KUHdo\LaravelAuth0Migrator\LaravelAuth0Migrator;
+use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
 class JobStatusCommand extends Command
 {
@@ -16,7 +16,7 @@ class JobStatusCommand extends Command
      */
     protected $description = 'Shows all import jobs.';
 
-    public function handle(LaravelAuth0Migrator $migrator): int
+    public function handle(Auth0Migrator $migrator): int
     {
         $this->table(
             $migrator->jobStatus($this->argument('id')),

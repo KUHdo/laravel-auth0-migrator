@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use KUHdo\LaravelAuth0Migrator\JsonSchema\User as JsonSchemaUser;
 use Illuminate\Foundation\Auth\User;
 
-class LaravelAuth0Migrator
+class Auth0Migrator
 {
     protected ManagementInterface $managementApi;
 
@@ -30,7 +30,7 @@ class LaravelAuth0Migrator
             $this->auth0->configuration()->setManagementToken(env('AUTH0_MANAGEMENT_API_TOKEN'));
         }
 
-        // Create a configured instance of the `Auth0\SDK\API\Management` class, based on the configuration we setup the SDK ($auth0) using.
+        // Create a configured instance of the `Auth0\SDK\API\Management` class, based on the configuration we set up the SDK ($auth0) using.
         // If no AUTH0_MANAGEMENT_API_TOKEN is configured, this will automatically perform a client credentials exchange to generate one for you, so long as a client secret is configured.
         $this->managementApi = $this->auth0->management();
 
@@ -48,6 +48,8 @@ class LaravelAuth0Migrator
             $json,
             $this->connection,
         );
+
+        return $response->getBody();
     }
 
     /**

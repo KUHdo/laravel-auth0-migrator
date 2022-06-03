@@ -6,9 +6,9 @@
 [![StyleCI][ico-styleci]][link-styleci]
 
 This `laravel-auth0-migrator` package helps out with the migration of a standard laravel setup. 
-Basically this packages get the needed API tokens as input. Does a bulk user import to the new auth0 database via some [guzzle](https://docs.guzzlephp.org/en/stable/) requests.
-After the migration is verified and done
-the package could be removed and is not needed furthermore.
+Basically this packages get the needed API tokens as input.  
+Does a bulk user import to the new auth0 database via some [guzzle](https://docs.guzzlephp.org/en/stable/) requests.
+After the migration is verified and done the package could be removed and is not needed furthermore and can be removed.
 
 ## Installation
 
@@ -17,6 +17,8 @@ Via Composer
 ``` bash
 $ composer require kuhdo/laravel-auth0-migrator
 ```
+In most cases it makes sense to read the documentation at auth0´s side. You should take a look into the [laravel tutorial](https://auth0.com/docs/quickstart/webapp/laravel/01-login).
+
 ## Prerequisites
 Follow the steps of auth0 [here](https://auth0.com/docs/manage-users/user-migration/bulk-user-imports#prerequisites).
 Explicitly you'll the API tokens for the auth0 database to be filled with the existing local laravel users.  

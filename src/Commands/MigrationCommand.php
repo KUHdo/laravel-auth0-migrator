@@ -2,10 +2,12 @@
 
 namespace KUHdo\LaravelAuth0Migrator\Commands;
 
+use Auth0\SDK\Exception\ArgumentException;
+use Auth0\SDK\Exception\NetworkException;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
-use KUHdo\LaravelAuth0Migrator\LaravelAuth0Migrator;
+use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
 class MigrationCommand extends Command
 {
@@ -20,7 +22,7 @@ class MigrationCommand extends Command
      */
     protected $description = 'Imports all user identities to auth0 database via management api.';
 
-    public function handle(LaravelAuth0Migrator $migrator): int
+    public function handle(Auth0Migrator $migrator): int
     {
         $count = User::count();
         $this->output->progressStart($count);
@@ -30,8 +32,14 @@ class MigrationCommand extends Command
             ->map(fn (Collection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
             ->lazy()
             ->each(function (string $chunkJson) use ($migrator) {
-                $migrator->requestUsersImport($chunkJson);
-                $this->output->progressAdvance(MigrationCommand::CHUNK_SIZE);
+                try {
+                    $migrator->managementApiClient()
+                        ->requestUsersImport($chunkJson);
+                } catch (NetworkException|ArgumentException $e) {
+                    $this->error($e->getMessage());
+                } finally {
+                    $this->output->progressAdvance(MigrationCommand::CHUNK_SIZE);
+                }
             });
 
         $this->output->progressFinish();
