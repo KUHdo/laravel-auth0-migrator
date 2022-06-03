@@ -2,7 +2,7 @@
 
 namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
-class MfaFactor  extends JsonSchema
+class MfaFactor extends JsonSchema
 {
     protected int $minItems = 1;
 
@@ -10,7 +10,7 @@ class MfaFactor  extends JsonSchema
 
     /**
      * The OTP secret is used with authenticator apps (Google Authenticator, Microsoft Authenticator, Authy, 1Password, LastPass).
-     * It must be supplied in un-padded Base32 encoding, such as: JBTWY3DPEHPK3PNP
+     * It must be supplied in un-padded Base32 encoding, such as: JBTWY3DPEHPK3PNP.
      */
     protected ?Totp $totp;
 
@@ -18,21 +18,21 @@ class MfaFactor  extends JsonSchema
 
     protected ?Email $email;
 
-    public function totp(?Totp $totp): MfaFactor
+    public function totp(?Totp $totp): self
     {
         $this->totp = $totp;
 
         return $this;
     }
 
-    public function phone(?Phone $phone): MfaFactor
+    public function phone(?Phone $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function email(?Email $email): MfaFactor
+    public function email(?Email $email): self
     {
         $this->email = $email;
 

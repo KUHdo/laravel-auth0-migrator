@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 class User extends JsonSchema
 {
     protected array $required = [
-        'email'
+        'email',
     ];
 
     protected bool $additionalProperties = false;
@@ -90,105 +90,105 @@ class User extends JsonSchema
      */
     protected ?string $password_hash;
 
-    public function email(?string $email): User
+    public function email(?string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function customPasswordHash(?CustomPasswordHash $custom_password_hash): User
+    public function customPasswordHash(?CustomPasswordHash $custom_password_hash): self
     {
         $this->custom_password_hash = $custom_password_hash;
 
         return $this;
     }
 
-    public function emailVerified(?bool $email_verified): User
+    public function emailVerified(?bool $email_verified): self
     {
         $this->email_verified = $email_verified;
 
         return $this;
     }
 
-    public function familyName(?string $family_name): User
+    public function familyName(?string $family_name): self
     {
         $this->family_name = $family_name;
 
         return $this;
     }
 
-    public function givenName(?string $given_name): User
+    public function givenName(?string $given_name): self
     {
         $this->given_name = $given_name;
 
         return $this;
     }
 
-    public function name(?string $name): User
+    public function name(?string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function userId(?string $user_id): User
+    public function userId(?string $user_id): self
     {
         $this->user_id = $user_id;
 
         return $this;
     }
 
-    public function nickname(?string $nickname): User
+    public function nickname(?string $nickname): self
     {
         $this->nickname = $nickname;
 
         return $this;
     }
 
-    public function picture(?string $picture): User
+    public function picture(?string $picture): self
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function blocked(?bool $blocked): User
+    public function blocked(?bool $blocked): self
     {
         $this->blocked = $blocked;
 
         return $this;
     }
 
-    public function username(?string $username): User
+    public function username(?string $username): self
     {
         $this->username = $username;
 
         return $this;
     }
 
-    public function appMetadata(Jsonable $app_metadata): User
+    public function appMetadata(Jsonable $app_metadata): self
     {
         $this->app_metadata = $app_metadata;
 
         return $this;
     }
 
-    public function userMetadata(Jsonable $user_metadata): User
+    public function userMetadata(Jsonable $user_metadata): self
     {
         $this->user_metadata = $user_metadata;
 
         return $this;
     }
 
-    public function mfaFactors(?Collection $mfa_factors): User
+    public function mfaFactors(?Collection $mfa_factors): self
     {
         $this->mfa_factors = $mfa_factors;
 
         return $this;
     }
 
-    public function passwordHash(?string $password_hash): User
+    public function passwordHash(?string $password_hash): self
     {
         $this->password_hash = $password_hash;
 

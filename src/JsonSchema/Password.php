@@ -8,7 +8,7 @@ class Password extends JsonSchema
 {
     public ?PasswordEncoding $encoding;
 
-    public function encoding(?PasswordEncoding $encoding): Password
+    public function encoding(?PasswordEncoding $encoding): self
     {
         $this->encoding = $encoding;
 

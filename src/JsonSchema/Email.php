@@ -4,8 +4,8 @@ namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
 class Email extends JsonSchema
 {
-    protected array $required =  [
-        'value'
+    protected array $required = [
+        'value',
     ];
 
     protected bool $additionalProperties = false;

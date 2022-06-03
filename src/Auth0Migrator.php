@@ -16,7 +16,8 @@ class Auth0Migrator
     protected ManagementInterface $managementApi;
 
     public function __construct(protected Auth0Interface $auth0)
-    {}
+    {
+    }
 
     public function jsonFromChunk(Collection $usersChunk): string
     {
@@ -26,7 +27,7 @@ class Auth0Migrator
 
     public function managementApiClient(): static
     {
-        if (!is_null(env('AUTH0_MANAGEMENT_API_TOKEN'))) {
+        if (! is_null(env('AUTH0_MANAGEMENT_API_TOKEN'))) {
             $this->auth0->configuration()->setManagementToken(env('AUTH0_MANAGEMENT_API_TOKEN'));
         }
 
@@ -58,7 +59,7 @@ class Auth0Migrator
     protected function mapToJsonSchemaUser(): Closure
     {
         return function (User $user) {
-            return (new JsonSchemaUser)
+            return (new JsonSchemaUser())
                 ->email($user->email)
                 ->userId($user->id)
                 ->blocked($user->status === 'Inactive')
@@ -66,13 +67,14 @@ class Auth0Migrator
                 ->givenName($user->first_name)
                 ->name($user->full_name)
                 ->familyName($user->last_name)
-                ->userMetadata([
+                ->userMetadata(
+                    [
                         ...json_decode($user->settings),
                         ...['newsletter' => $user->newletter],
                         ]
                 )
                 ->appMetadata([
-                    'phone_verified_at' => $user->phone_verified_at
+                    'phone_verified_at' => $user->phone_verified_at,
                 ]);
         };
     }

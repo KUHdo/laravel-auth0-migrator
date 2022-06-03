@@ -5,7 +5,7 @@ namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 use KUHdo\LaravelAuth0Migrator\Enums\Digest;
 use KUHdo\LaravelAuth0Migrator\Enums\Encoding;
 
-class Hash  extends JsonSchema
+class Hash extends JsonSchema
 {
     /**
      * The password hash.
@@ -28,28 +28,28 @@ class Hash  extends JsonSchema
      */
     protected ?Key $key;
 
-    public function value(?string $value): Hash
+    public function value(?string $value): self
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function encoding(?Encoding $encoding): Hash
+    public function encoding(?Encoding $encoding): self
     {
         $this->encoding = $encoding;
 
         return $this;
     }
 
-    public function digest(?Digest $digest): Hash
+    public function digest(?Digest $digest): self
     {
         $this->digest = $digest;
 
         return $this;
     }
 
-    public function key(?Key $key): Hash
+    public function key(?Key $key): self
     {
         $this->key = $key;
 
@@ -58,7 +58,7 @@ class Hash  extends JsonSchema
 
     public function toArray()
     {
-       return [
+        return [
            'value' => $this->value,
            'encoding' => $this->encoding,
            'digest' => $this->digest,

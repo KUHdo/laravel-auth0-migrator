@@ -8,7 +8,7 @@ class Totp extends JsonSchema
 
     protected string $secret;
 
-    public function secret(string $secret): Totp
+    public function secret(string $secret): self
     {
         $this->secret = $secret;
 
@@ -18,7 +18,7 @@ class Totp extends JsonSchema
     public function toArray()
     {
         return [
-          "secret" => $this->secret,
+          'secret' => $this->secret,
         ];
     }
 }

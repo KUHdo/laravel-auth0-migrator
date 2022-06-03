@@ -18,21 +18,21 @@ class Salt extends JsonSchema
 
     protected ?Encoding $encoding;
 
-     public function value(string $value): Salt
+    public function value(string $value): self
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function position(Position $position): Salt
+    public function position(Position $position): self
     {
         $this->position = $position;
 
         return $this;
     }
 
-    public function encoding(?Encoding $encoding): Salt
+    public function encoding(?Encoding $encoding): self
     {
         $this->encoding = $encoding;
 

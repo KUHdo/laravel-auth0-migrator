@@ -34,28 +34,28 @@ class CustomPasswordHash extends JsonSchema
      */
     protected Password $password;
 
-    public function algorithm(Algorithm $algorithm): CustomPasswordHash
+    public function algorithm(Algorithm $algorithm): self
     {
         $this->algorithm = $algorithm;
 
         return $this;
     }
 
-    public function hash(Hash $hash): CustomPasswordHash
+    public function hash(Hash $hash): self
     {
         $this->hash = $hash;
 
         return $this;
     }
 
-    public function salt(Salt $salt): CustomPasswordHash
+    public function salt(Salt $salt): self
     {
         $this->salt = $salt;
 
         return $this;
     }
 
-    public function password(Password $password): CustomPasswordHash
+    public function password(Password $password): self
     {
         $this->password = $password;
 
@@ -68,7 +68,7 @@ class CustomPasswordHash extends JsonSchema
             'algorithm' => $this->algorithm,
             'hash' => $this->hash,
             'salt' => $this->salt,
-            'password' => $this->password
+            'password' => $this->password,
         ];
     }
 }

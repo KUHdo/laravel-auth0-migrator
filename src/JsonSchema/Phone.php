@@ -5,7 +5,7 @@ namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 class Phone extends JsonSchema
 {
     protected array $required = [
-        'value'
+        'value',
     ];
 
     protected bool $additionalProperties = false;
@@ -13,11 +13,11 @@ class Phone extends JsonSchema
     /**
      * The phone number for SMS MFA. The phone number should include a country code
      * and begin with +, such as: +12125550001
-     * pattern": "^\\+[0-9]{1,15}$"
+     * pattern": "^\\+[0-9]{1,15}$".
      */
     protected string $value;
 
-    public function value(string $value): Phone
+    public function value(string $value): self
     {
         $this->value = $value;
 
@@ -27,7 +27,7 @@ class Phone extends JsonSchema
     public function toArray()
     {
         return  [
-            'value' => $this->value
+            'value' => $this->value,
         ];
     }
 }

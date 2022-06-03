@@ -28,17 +28,17 @@ class MigrationCommand extends Command
         $this->output->progressStart($count);
 
         User::cursor()
-            ->chunk(MigrationCommand::CHUNK_SIZE)
+            ->chunk(self::CHUNK_SIZE)
             ->map(fn (Collection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
             ->lazy()
             ->each(function (string $chunkJson) use ($migrator) {
                 try {
                     $migrator->managementApiClient()
                         ->requestUsersImport($chunkJson);
-                } catch (NetworkException|ArgumentException $e) {
+                } catch (NetworkException | ArgumentException $e) {
                     $this->error($e->getMessage());
                 } finally {
-                    $this->output->progressAdvance(MigrationCommand::CHUNK_SIZE);
+                    $this->output->progressAdvance(self::CHUNK_SIZE);
                 }
             });
 
