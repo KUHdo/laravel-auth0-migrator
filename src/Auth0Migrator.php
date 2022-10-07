@@ -76,7 +76,7 @@ class Auth0Migrator
                 ->givenName($user->first_name)
                 ->name($user->full_name)
                 ->familyName($user->last_name)
-                ->userMetadata(new class implements Jsonable {
+                ->userMetadata(new class() implements Jsonable {
                     public function toJson($options = 0)
                     {
                         return json_encode([
@@ -86,7 +86,7 @@ class Auth0Migrator
                     }
                 })
                 ->appMetadata(
-                    new class implements Jsonable {
+                    new class() implements Jsonable {
                         public function toJson($options = 0)
                         {
                             return json_encode([

@@ -8,7 +8,6 @@ use Auth0\SDK\Exception\ArgumentException;
 use Auth0\SDK\Exception\NetworkException;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
