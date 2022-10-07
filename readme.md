@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Tests](https://github.com/KUHdo/laravel-auth0-migrator/actions/workflows/run-tests.yml/badge.svg)](https://github.com/KUHdo/laravel-auth0-migrator/actions/workflows/run-tests.yml)
+[![run-tests](https://github.com/KUHdo/laravel-auth0-migrator/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/KUHdo/laravel-auth0-migrator/actions/workflows/run-tests.yml)
 [![normalize composer.json](https://github.com/KUHdo/laravel-auth0-migrator/actions/workflows/composer-normalize.yml/badge.svg)](https://github.com/KUHdo/laravel-auth0-migrator/actions/workflows/composer-normalize.yml)
 
 This `laravel-auth0-migrator` package helps out with the migration of a standard laravel setup. 
