@@ -23,72 +23,72 @@ class User extends JsonSchema
      * This can be used in lieu of the password_hash field when the users password hash was created with an alternate algorithm.
      * Note that this field and password_hash are mutually exclusive.
      */
-    protected ?CustomPasswordHash $custom_password_hash;
+    protected ?CustomPasswordHash $custom_password_hash = null;
 
     /**
      * Indicates whether the user has verified their email address.
      */
-    protected ?bool $email_verified;
+    protected ?bool $email_verified = null;
 
     /**
      * The user's family name.
      */
-    protected ?string $family_name;
+    protected ?string $family_name = null;
 
     /**
      * The user's given name.
      */
-    protected ?string $given_name;
+    protected ?string $given_name = null;
 
     /**
      * The user's full name.
      */
-    protected ?string $name;
+    protected ?string $name = null;
 
     /**
      * The user's unique identifier. This will be prepended by the connection strategy.
      */
-    protected ?string $user_id;
+    protected ?string $user_id = null;
 
     /**
      * The user's nickname.
      */
-    protected ?string $nickname;
+    protected ?string $nickname = null;
 
     /**
      * URL pointing to the user's profile picture.
      */
-    protected ?string $picture;
+    protected ?string $picture = null;
 
     /**
      * Indicates whether the user has been blocked.
      */
-    protected ?bool $blocked;
+    protected ?bool $blocked = null;
 
     /**
      * The user's username.
      */
-    protected ?string $username;
+    protected ?string $username = null;
 
     /**
      * Data related to the user that does affect the application's core functionality.
      */
-    protected ?Jsonable $app_metadata;
+    protected ?Jsonable $app_metadata = null;
 
     /**
      * Data related to the user that does not affect the application's core functionality.
      */
-    protected ?Jsonable $user_metadata;
+    protected ?Jsonable $user_metadata = null;
 
     /**
      * The MFA factors that can be used to authenticate this user.
      */
-    protected ?Collection $mfa_factors;
+    protected ?Collection $mfa_factors = null;
 
     /**
      * Hashed password for the user. Passwords should be hashed using bcrypt $2a$ or $2b$ and have 10 saltRounds.
      */
-    protected ?string $password_hash;
+    protected ?string $password_hash = null;
 
     public function email(?string $email): self
     {

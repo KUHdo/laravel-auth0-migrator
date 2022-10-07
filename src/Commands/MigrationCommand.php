@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace KUHdo\LaravelAuth0Migrator\Commands;
 
 use Auth0\SDK\Exception\ArgumentException;
@@ -7,6 +9,7 @@ use Auth0\SDK\Exception\NetworkException;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
 class MigrationCommand extends Command
@@ -25,12 +28,16 @@ class MigrationCommand extends Command
     public function handle(Auth0Migrator $migrator): int
     {
         $count = User::count();
-        $this->output->progressStart($count);
+        if ($count < 0) {
+            $this->error(__('No users found in database. Nothing to migrate.'));
 
-        User::cursor()
+            return static::FAILURE;
+        }
+
+        $this->output->progressStart($count);
+        User::lazy()
             ->chunk(self::CHUNK_SIZE)
-            ->map(fn (Collection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
-            ->lazy()
+            ->map(fn (LazyCollection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
             ->each(function (string $chunkJson) use ($migrator) {
                 try {
                     $migrator->managementApiClient()
