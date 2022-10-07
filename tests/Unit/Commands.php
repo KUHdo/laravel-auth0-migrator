@@ -5,8 +5,8 @@ use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Contract\ConfigurableContract;
 use Orchestra\Testbench\Factories\UserFactory;
 
-beforeEach(function (){
-   UserFactory::new()->create();
+beforeEach(function () {
+    UserFactory::new()->create();
 });
 
 it('can run migrate command', function () {
