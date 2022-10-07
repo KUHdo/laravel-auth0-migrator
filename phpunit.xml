@@ -15,4 +15,13 @@
             <directory suffix=".php">./src</directory>
         </include>
     </coverage>
+    <php>
+        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="AUTH0_MANAGEMENT_API_TOKEN" value="eyJhb"/>
+        <env name="AUTH0_DOMAIN" value="your.eu.auth0.com"/>
+        <env name="AUTH0_CLIENT_ID" value="5LqX9"/>
+        <env name="AUTH0_CLIENT_SECRET" value="GdtFrBuCMkUZj5a"/>
+        <env name="AUTH0_AUDIENCE" value="con_ziwAe"/>
+        <env name="AUTH0_ORGANIZATION_ID" value="org_CWVu"/>
+    </php>
 </phpunit>
