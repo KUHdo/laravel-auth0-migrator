@@ -6,12 +6,9 @@ use Auth0\SDK\Contract\API\ManagementInterface;
 use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Exception\ArgumentException;
 use Auth0\SDK\Exception\NetworkException;
-use Closure;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
-use KUHdo\LaravelAuth0Migrator\JsonSchema\User as JsonSchemaUser;
 use Illuminate\Foundation\Auth\User;
 use Psr\Http\Message\ResponseInterface;
 
@@ -25,7 +22,7 @@ class Auth0Migrator
 
     public function jsonFromChunk(LazyCollection $usersChunk): string
     {
-        $jsonContent = $usersChunk->map(fn(User $user) => $this->userMapping->mappingOfOne($user))
+        $jsonContent = $usersChunk->map(fn (User $user) => $this->userMapping->mappingOfOne($user))
             ->toJson();
 
         Storage::put('users.json', $jsonContent);

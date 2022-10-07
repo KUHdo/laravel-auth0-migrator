@@ -9,11 +9,11 @@ use KUHdo\LaravelAuth0Migrator\JsonSchema\User as JsonSchemaUser;
 
 class UserMapping implements UserMappingJsonSchema
 {
-
     /**
      * Overwrite me for mapping!
      *
      * @param User $user
+     *
      * @return JsonSchemaUser
      */
     public function mappingOfOne(User $user): JsonSchemaUser
@@ -26,7 +26,7 @@ class UserMapping implements UserMappingJsonSchema
             ->givenName($user->first_name)
             ->name($user->full_name)
             ->familyName($user->last_name)
-            ->userMetadata(new class implements Jsonable {
+            ->userMetadata(new class() implements Jsonable {
                 public function toJson($options = 0)
                 {
                     return json_encode([
@@ -36,7 +36,7 @@ class UserMapping implements UserMappingJsonSchema
                 }
             })
             ->appMetadata(
-                new class implements Jsonable {
+                new class() implements Jsonable {
                     public function toJson($options = 0)
                     {
                         return json_encode([
