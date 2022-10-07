@@ -38,10 +38,18 @@ class MigrationCommand extends Command
         User::lazy()
             ->chunk(self::CHUNK_SIZE)
             ->map(fn (LazyCollection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
-            ->each(function (string $chunkJson) use ($migrator) {
+            ->each(function (string $chunkJson) use ($migrator, $count) {
                 try {
-                    $migrator->managementApiClient()
+                    $response = $migrator->managementApiClient()
                         ->requestUsersImport($chunkJson);
+
+                    $this->info(
+                        __(
+                        'Status :status: Import user job spawned with id :id and and :count users.',
+                            ["status" => $response->getStatusCode(), "id" => $response->getBody(), "count" => $count]
+                        )
+                    );
+
                 } catch (NetworkException | ArgumentException $e) {
                     $this->error($e->getMessage());
                 } finally {

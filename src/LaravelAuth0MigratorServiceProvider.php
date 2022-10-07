@@ -10,6 +10,7 @@ use Auth0\SDK\Contract\ConfigurableContract;
 use Illuminate\Support\ServiceProvider;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
+use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
 
 class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 {
@@ -73,6 +74,8 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
         $this->app->singleton('laravel-auth0-migrator', function ($app) {
             return new Auth0Migrator(resolve(Auth0Interface::class));
         });
+
+        $this->app->bind(UserMappingJsonSchema::class, UserMapping::class);
 
         // Shipping config from env vars.
         $this->app->singleton(ConfigurableContract::class, function ($app) {
