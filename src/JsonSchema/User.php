@@ -20,25 +20,26 @@ class User extends JsonSchema
 
     /**
      * A more generic way to provide the users password hash.
-     * This can be used in lieu of the password_hash field when the users password hash was created with an alternate algorithm.
+     * This can be used in live of the password_hash field when
+     * the users password hash was created with an alternate algorithm.
      * Note that this field and password_hash are mutually exclusive.
      */
-    protected ?CustomPasswordHash $custom_password_hash = null;
+    protected ?CustomPasswordHash $customPasswordHash = null;
 
     /**
      * Indicates whether the user has verified their email address.
      */
-    protected ?bool $email_verified = null;
+    protected ?bool $emailVerified = null;
 
     /**
      * The user's family name.
      */
-    protected ?string $family_name = null;
+    protected ?string $familyName = null;
 
     /**
      * The user's given name.
      */
-    protected ?string $given_name = null;
+    protected ?string $givenName = null;
 
     /**
      * The user's full name.
@@ -48,7 +49,7 @@ class User extends JsonSchema
     /**
      * The user's unique identifier. This will be prepended by the connection strategy.
      */
-    protected ?string $user_id = null;
+    protected ?string $userId = null;
 
     /**
      * The user's nickname.
@@ -73,22 +74,22 @@ class User extends JsonSchema
     /**
      * Data related to the user that does affect the application's core functionality.
      */
-    protected ?Jsonable $app_metadata = null;
+    protected ?Jsonable $appMetadata = null;
 
     /**
      * Data related to the user that does not affect the application's core functionality.
      */
-    protected ?Jsonable $user_metadata = null;
+    protected ?Jsonable $userMetadata = null;
 
     /**
      * The MFA factors that can be used to authenticate this user.
      */
-    protected ?Collection $mfa_factors = null;
+    protected ?Collection $mfaFactors = null;
 
     /**
      * Hashed password for the user. Passwords should be hashed using bcrypt $2a$ or $2b$ and have 10 saltRounds.
      */
-    protected ?string $password_hash = null;
+    protected ?string $passwordHash = null;
 
     public function email(?string $email): self
     {
@@ -97,30 +98,30 @@ class User extends JsonSchema
         return $this;
     }
 
-    public function customPasswordHash(?CustomPasswordHash $custom_password_hash): self
+    public function customPasswordHash(?CustomPasswordHash $customPasswordHash): self
     {
-        $this->custom_password_hash = $custom_password_hash;
+        $this->customPasswordHash = $customPasswordHash;
 
         return $this;
     }
 
-    public function emailVerified(?bool $email_verified): self
+    public function emailVerified(?bool $emailVerified): self
     {
-        $this->email_verified = $email_verified;
+        $this->emailVerified = $emailVerified;
 
         return $this;
     }
 
-    public function familyName(?string $family_name): self
+    public function familyName(?string $familyName): self
     {
-        $this->family_name = $family_name;
+        $this->familyName = $familyName;
 
         return $this;
     }
 
-    public function givenName(?string $given_name): self
+    public function givenName(?string $givenName): self
     {
-        $this->given_name = $given_name;
+        $this->givenName = $givenName;
 
         return $this;
     }
@@ -132,9 +133,9 @@ class User extends JsonSchema
         return $this;
     }
 
-    public function userId(?string $user_id): self
+    public function userId(?string $userId): self
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
 
         return $this;
     }
@@ -167,30 +168,30 @@ class User extends JsonSchema
         return $this;
     }
 
-    public function appMetadata(Jsonable $app_metadata): self
+    public function appMetadata(Jsonable $appMetadata): self
     {
-        $this->app_metadata = $app_metadata;
+        $this->appMetadata = $appMetadata;
 
         return $this;
     }
 
-    public function userMetadata(Jsonable $user_metadata): self
+    public function userMetadata(Jsonable $userMetadata): self
     {
-        $this->user_metadata = $user_metadata;
+        $this->userMetadata = $userMetadata;
 
         return $this;
     }
 
-    public function mfaFactors(?Collection $mfa_factors): self
+    public function mfaFactors(?Collection $mfaFactors): self
     {
-        $this->mfa_factors = $mfa_factors;
+        $this->mfaFactors = $mfaFactors;
 
         return $this;
     }
 
-    public function passwordHash(?string $password_hash): self
+    public function passwordHash(?string $passwordHash): self
     {
-        $this->password_hash = $password_hash;
+        $this->passwordHash = $passwordHash;
 
         return $this;
     }
@@ -199,19 +200,19 @@ class User extends JsonSchema
     {
         return [
             'email' => $this->email,
-            'email_verified' => $this->email_verified,
-            'user_id' => $this->user_id,
+            'email_verified' => $this->emailVerified,
+            'user_id' => $this->userId,
             'username' => $this->username,
-            'given_name' => $this->given_name,
-            'family_name' => $this->family_name,
+            'given_name' => $this->givenName,
+            'family_name' => $this->familyName,
             'name' => $this->name,
             'nickname' => $this->nickname,
             'picture' => $this->picture,
             'blocked' => $this->blocked,
-            'password_hash' => $this->password_hash,
-            'app_metadata' => $this->app_metadata,
-            'user_metadata' => $this->user_metadata,
-            'mfa_factors' => $this->mfa_factors,
+            'password_hash' => $this->passwordHash,
+            'app_metadata' => $this->appMetadata,
+            'user_metadata' => $this->userMetadata,
+            'mfa_factors' => $this->mfaFactors,
         ];
     }
 }

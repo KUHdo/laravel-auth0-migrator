@@ -44,7 +44,7 @@ class MigrationCommand extends Command
 
                     $this->info(
                         __(
-                            'Status :status: Import user job spawned with id :id and and :count users.',
+                            __('Status :status: Import user job spawned with id :id and and :count users.'),
                             ['status' => $response->getStatusCode(), 'id' => $response->getBody(), 'count' => $count]
                         )
                     );

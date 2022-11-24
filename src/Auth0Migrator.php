@@ -6,28 +6,25 @@ use Auth0\SDK\Contract\API\ManagementInterface;
 use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Exception\ArgumentException;
 use Auth0\SDK\Exception\NetworkException;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\LazyCollection;
 use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
-use Illuminate\Foundation\Auth\User;
 use Psr\Http\Message\ResponseInterface;
 
 class Auth0Migrator
 {
     protected ManagementInterface $managementApi;
 
-    public function __construct(protected Auth0Interface $auth0, protected UserMappingJsonSchema $userMapping)
+    public function __construct(protected Auth0Interface $auth0)
     {
     }
 
-    public function jsonFromChunk(LazyCollection $usersChunk): string
+    public function jsonFromChunk(Collection|LazyCollection $usersChunk): string
     {
-        $jsonContent = $usersChunk->map(fn (User $user) => $this->userMapping->mappingOfOne($user))
-            ->toJson();
+        $jsonContent = Auth0UserSchema::makeJson($usersChunk);
 
-        Storage::put('users.json', $jsonContent);
-
-        return Storage::path('users.json');
+        return Auth0UserSchema::createJsonFile($jsonContent);
     }
 
     public function managementApiClient(): static
@@ -50,14 +47,23 @@ class Auth0Migrator
      * @throws NetworkException
      * @throws ArgumentException
      */
-    public function requestUsersImport(string $json): ResponseInterface
+    public function requestUsersImport(string $filePath): ResponseInterface
     {
         $this->auth0->management()->roles();
 
-        return $this->managementApi->jobs()->createImportUsers(
-            $json,
+        $response =  $this->managementApi->jobs()->createImportUsers(
+            $filePath,
             config('auth0-migrator.auth0.audience'),
         );
+
+        // Caching created jobs.
+        $jobsList = Cache::get('auth0.jobs');
+        $jobsList = [...$jobsList, $response->getBody()['id']];
+
+        // TTL is at maximum 2 hours. Auth0 keeps that information no longer.
+        Cache::put('auth0.jobs', $jobsList, now()->addHours(2));
+
+        return $response;
     }
 
     /**

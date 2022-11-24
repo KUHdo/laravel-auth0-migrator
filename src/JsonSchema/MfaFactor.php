@@ -9,7 +9,8 @@ class MfaFactor extends JsonSchema
     protected int $maxItems = 10;
 
     /**
-     * The OTP secret is used with authenticator apps (Google Authenticator, Microsoft Authenticator, Authy, 1Password, LastPass).
+     * The OTP secret is used with
+     * authenticator apps (Google Authenticator, Microsoft Authenticator, Authy, 1Password, LastPass).
      * It must be supplied in un-padded Base32 encoding, such as: JBTWY3DPEHPK3PNP.
      */
     protected ?Totp $totp;

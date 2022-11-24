@@ -7,6 +7,7 @@ use Auth0\SDK\Configuration\SdkConfiguration;
 use Auth0\SDK\Contract\API\ManagementInterface;
 use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Contract\ConfigurableContract;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
@@ -71,30 +72,32 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
         $this->mergeConfigFrom($this->configFilePath, 'auth0-migrator');
 
         // Register the service the package provides.
-        $this->app->singleton('laravel-auth0-migrator', function ($app) {
-            return new Auth0Migrator(resolve(Auth0Interface::class));
+        $this->app->singleton('laravel-auth0-migrator', function (Application $app) {
+            return new Auth0Migrator(
+                $app->make(Auth0Interface::class),
+            );
         });
 
         $this->app->bind(UserMappingJsonSchema::class, UserMapping::class);
-
         // Shipping config from env vars.
-        $this->app->singleton(ConfigurableContract::class, function ($app) {
+        $this->app->singleton(ConfigurableContract::class, function () {
             return new SdkConfiguration(
                 domain: config('auth0-migrator.auth0.domain'),
                 clientId: config('auth0-migrator.auth0.client_id'),
                 clientSecret: config('auth0-migrator.auth0.client_secret'),
+                audience: [config('auth0-migrator.auth0.audience')],
                 /*
                  * The process for retrieving an Access Token for Management API endpoints is described here:
                  * @link https://auth0.com/docs/libraries/auth0-php/using-the-management-api-with-auth0-php
                  */
-                audience: [config('auth0-migrator.auth0.audience')],
                 organization: [config('auth0-migrator.auth0.organization')],
+                cookieSecret: config('auth0-migrator.auth0.cookie_secret'),
             );
         });
 
         // Binding auth0 interface to actual auth0 sdk implementation.
-        $this->app->bind(Auth0Interface::class, function ($app) {
-            return new Auth0(resolve(ConfigurableContract::class));
+        $this->app->bind(Auth0Interface::class, function (Application $app) {
+            return new Auth0($app->make(ConfigurableContract::class));
         });
 
         /*
@@ -103,7 +106,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
          * If no AUTH0_MANAGEMENT_API_TOKEN is configured, this will automatically
          * perform a client credentials exchange to generate one for you, so long as a client secret is configured.
          */
-        $this->app->singleton(ManagementInterface::class, function ($app) {
+        $this->app->singleton(ManagementInterface::class, function (Application $app) {
             if (! is_null(config('auth0-migrator.auth0.management_api_token'))) {
                 $newConfiguration = $app->make(Auth0Interface::class)
                     ->configuration()
