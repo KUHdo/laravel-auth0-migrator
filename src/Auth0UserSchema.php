@@ -16,9 +16,10 @@ class Auth0UserSchema
      * Make a json from the users' collection.
      *
      * @param Collection|LazyCollection $usersChunk
+     *
      * @return string
      */
-    public static function makeJson(Collection|LazyCollection $usersChunk): string
+    public static function makeJson(Collection | LazyCollection $usersChunk): string
     {
         return $usersChunk->map(
             fn (User $user): JsonSchemaUser => resolve(UserMappingJsonSchema::class)->mappingOfOne($user)
@@ -29,6 +30,7 @@ class Auth0UserSchema
      * Only return file name schema.
      *
      * @param string $jsonContent
+     *
      * @return string
      */
     public static function fileName(string $jsonContent): string
@@ -41,6 +43,7 @@ class Auth0UserSchema
      * Return the path of the created json schema file.
      *
      * @param string $jsonContent
+     *
      * @return string path
      */
     public static function createJsonFile(string $jsonContent): string

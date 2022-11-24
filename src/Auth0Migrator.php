@@ -9,7 +9,6 @@ use Auth0\SDK\Exception\NetworkException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\LazyCollection;
-use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
 use Psr\Http\Message\ResponseInterface;
 
 class Auth0Migrator
@@ -20,7 +19,7 @@ class Auth0Migrator
     {
     }
 
-    public function jsonFromChunk(Collection|LazyCollection $usersChunk): string
+    public function jsonFromChunk(Collection | LazyCollection $usersChunk): string
     {
         $jsonContent = Auth0UserSchema::makeJson($usersChunk);
 
@@ -51,7 +50,7 @@ class Auth0Migrator
     {
         $this->auth0->management()->roles();
 
-        $response =  $this->managementApi->jobs()->createImportUsers(
+        $response = $this->managementApi->jobs()->createImportUsers(
             $filePath,
             config('auth0-migrator.auth0.audience'),
         );
