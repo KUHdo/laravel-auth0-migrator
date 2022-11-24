@@ -33,25 +33,26 @@ class MigrationCommand extends Command
             return static::FAILURE;
         }
 
-        $this->output->progressStart($count);
+        $howManyChunks = (int) ceil($count / static::CHUNK_SIZE);
+        $this->output->progressStart($howManyChunks);
+
         User::lazy()
             ->chunk(self::CHUNK_SIZE)
             ->map(fn (LazyCollection $usersChunk): string => $migrator->jsonFromChunk($usersChunk))
             ->each(function (string $chunkJson) use ($migrator, $count) {
                 try {
-                    $response = $migrator->managementApiClient()
-                        ->requestUsersImport($chunkJson);
+                    $response = $migrator->requestUsersImport($chunkJson);
 
                     $this->info(
                         __(
-                            __('Status :status: Import user job spawned with id :id and and :count users.'),
+                            'Status :status: Import user job spawned with id :id and and :count users.',
                             ['status' => $response->getStatusCode(), 'id' => $response->getBody(), 'count' => $count]
                         )
                     );
                 } catch (NetworkException | ArgumentException $e) {
                     $this->error($e->getMessage());
                 } finally {
-                    $this->output->progressAdvance(self::CHUNK_SIZE);
+                    $this->output->progressAdvance();
                 }
             });
 

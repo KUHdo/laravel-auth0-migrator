@@ -9,6 +9,7 @@ use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Contract\ConfigurableContract;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use KUHdo\LaravelAuth0Migrator\Commands\JobErrorDetailsCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
 use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
@@ -46,6 +47,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
         $this->commands([
             MigrationCommand::class,
             JobStatusCommand::class,
+            JobErrorDetailsCommand::class,
         ]);
     }
 
@@ -86,12 +88,8 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
                 clientId: config('auth0-migrator.auth0.client_id'),
                 clientSecret: config('auth0-migrator.auth0.client_secret'),
                 audience: [config('auth0-migrator.auth0.audience')],
-                /*
-                 * The process for retrieving an Access Token for Management API endpoints is described here:
-                 * @link https://auth0.com/docs/libraries/auth0-php/using-the-management-api-with-auth0-php
-                 */
-                organization: [config('auth0-migrator.auth0.organization')],
                 cookieSecret: config('auth0-migrator.auth0.cookie_secret'),
+                managementToken: config('auth0-migrator.auth0.management_api_token')
             );
         });
 
