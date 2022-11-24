@@ -14,9 +14,7 @@ interface UserMappingJsonSchema
      * You can see one implementation in the UserMapping::class to get a glimpse.
      *
      * @param User $user
-     *
      * @return JsonSchemaUser
-     *
      * @see https://auth0.com/docs/manage-users/user-migration/bulk-user-import-database-schema-and-examples
      * @see UserMapping::mappingOfOne()
      */

@@ -36,7 +36,7 @@ class MigrationCommand extends Command
         $this->output->progressStart($count);
         User::lazy()
             ->chunk(self::CHUNK_SIZE)
-            ->map(fn (LazyCollection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
+            ->map(fn (LazyCollection $usersChunk): string => $migrator->jsonFromChunk($usersChunk))
             ->each(function (string $chunkJson) use ($migrator, $count) {
                 try {
                     $response = $migrator->managementApiClient()

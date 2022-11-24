@@ -11,13 +11,6 @@ use KUHdo\LaravelAuth0Migrator\Enums\Algorithm;
  */
 class CustomPasswordHash extends JsonSchema
 {
-    protected array $required = [
-        'algorithm',
-        'hash',
-    ];
-
-    protected bool $additionalProperties = false;
-
     /**
      * The algorithm that was used to hash the password.
      */

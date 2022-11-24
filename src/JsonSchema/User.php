@@ -2,16 +2,17 @@
 
 namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
 class User extends JsonSchema
 {
-    protected array $required = [
+    public array $required = [
         'email',
     ];
 
-    protected bool $additionalProperties = false;
+    public bool $additionalProperties = false;
 
     /**
      * The user's email address.
@@ -74,12 +75,12 @@ class User extends JsonSchema
     /**
      * Data related to the user that does affect the application's core functionality.
      */
-    protected ?Jsonable $appMetadata = null;
+    protected AppMetaData $appMetadata;
 
     /**
      * Data related to the user that does not affect the application's core functionality.
      */
-    protected ?Jsonable $userMetadata = null;
+    protected UserMetaData $userMetadata;
 
     /**
      * The MFA factors that can be used to authenticate this user.
@@ -91,114 +92,132 @@ class User extends JsonSchema
      */
     protected ?string $passwordHash = null;
 
-    public function email(?string $email): self
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->appMetadata = new AppMetaData();
+        $this->userMetadata = new UserMetaData();
+    }
+
+    public function email(?string $email): static
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function customPasswordHash(?CustomPasswordHash $customPasswordHash): self
+    public function customPasswordHash(?CustomPasswordHash $customPasswordHash): static
     {
         $this->customPasswordHash = $customPasswordHash;
 
         return $this;
     }
 
-    public function emailVerified(?bool $emailVerified): self
+    public function emailVerified(?bool $emailVerified): static
     {
         $this->emailVerified = $emailVerified;
 
         return $this;
     }
 
-    public function familyName(?string $familyName): self
+    public function familyName(?string $familyName): static
     {
         $this->familyName = $familyName;
 
         return $this;
     }
 
-    public function givenName(?string $givenName): self
+    public function givenName(?string $givenName): static
     {
         $this->givenName = $givenName;
 
         return $this;
     }
 
-    public function name(?string $name): self
+    public function name(?string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function userId(?string $userId): self
+    public function userId(?string $userId): static
     {
         $this->userId = $userId;
 
         return $this;
     }
 
-    public function nickname(?string $nickname): self
+    public function nickname(?string $nickname): static
     {
         $this->nickname = $nickname;
 
         return $this;
     }
 
-    public function picture(?string $picture): self
+    public function picture(?string $picture): static
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function blocked(?bool $blocked): self
+    public function blocked(?bool $blocked): static
     {
         $this->blocked = $blocked;
 
         return $this;
     }
 
-    public function username(?string $username): self
+    public function username(?string $username): static
     {
         $this->username = $username;
 
         return $this;
     }
 
-    public function appMetadata(Jsonable $appMetadata): self
+    public function appMetadata(array $appMetadata): static
     {
-        $this->appMetadata = $appMetadata;
+        $appMetaData = new AppMetaData($appMetadata);
+        $this->appMetadata = $appMetaData;
 
         return $this;
     }
 
-    public function userMetadata(Jsonable $userMetadata): self
+    public function userMetadata(array $userMetadata): static
     {
-        $this->userMetadata = $userMetadata;
+        $userMetaData = new UserMetaData($userMetadata);
+        $this->userMetadata = $userMetaData;
 
         return $this;
     }
 
-    public function mfaFactors(?Collection $mfaFactors): self
+    public function mfaFactors(?Collection $mfaFactors): static
     {
         $this->mfaFactors = $mfaFactors;
 
         return $this;
     }
 
-    public function passwordHash(?string $passwordHash): self
+    public function passwordHash(?string $passwordHash): static
     {
         $this->passwordHash = $passwordHash;
 
         return $this;
     }
 
-    public function toArray()
+    /**
+     * array_filter without a callback removes all entries where the value is null.
+     * This is needed to be aligned with json schema.
+     *
+     * @see JsonSchema/JsonUserSchema.json
+     * @return array
+     */
+    public function toArray(): array
     {
-        return [
+        return array_filter([
             'email' => $this->email,
             'email_verified' => $this->emailVerified,
             'user_id' => $this->userId,
@@ -210,9 +229,9 @@ class User extends JsonSchema
             'picture' => $this->picture,
             'blocked' => $this->blocked,
             'password_hash' => $this->passwordHash,
-            'app_metadata' => $this->appMetadata,
-            'user_metadata' => $this->userMetadata,
+            'app_metadata' => $this->appMetadata->toArray(),
+            'user_metadata' => $this->userMetadata->toArray(),
             'mfa_factors' => $this->mfaFactors,
-        ];
+        ]);
     }
 }

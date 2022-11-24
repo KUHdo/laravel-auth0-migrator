@@ -48,16 +48,13 @@ class Auth0Migrator
      */
     public function requestUsersImport(string $filePath): ResponseInterface
     {
-        $this->auth0->management()->roles();
-
         $response = $this->managementApi->jobs()->createImportUsers(
             $filePath,
             config('auth0-migrator.auth0.audience'),
         );
 
         // Caching created jobs.
-        $jobsList = Cache::get('auth0.jobs');
-        $jobsList = [...$jobsList, $response->getBody()['id']];
+        $jobsList = Cache::get('auth0.jobs') ?? [];
 
         // TTL is at maximum 2 hours. Auth0 keeps that information no longer.
         Cache::put('auth0.jobs', $jobsList, now()->addHours(2));

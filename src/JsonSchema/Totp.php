@@ -4,8 +4,6 @@ namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
 class Totp extends JsonSchema
 {
-    protected bool $additionalProperties = false;
-
     protected string $secret;
 
     public function secret(string $secret): self

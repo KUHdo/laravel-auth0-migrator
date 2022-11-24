@@ -2,13 +2,14 @@
 
 namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
+
+use InvalidArgumentException;
+
 class Email extends JsonSchema
 {
     protected array $required = [
         'value',
     ];
-
-    protected bool $additionalProperties = false;
 
     /**
      * The email address for MFA.
