@@ -19,8 +19,10 @@ class Auth0UserSchema
      * Make a json from the users' collection.
      *
      * @param Collection|LazyCollection $usersChunk
-     * @return string
+     *
      * @throws ValidationException
+     *
+     * @return string
      */
     public static function makeJson(Collection | LazyCollection $usersChunk): string
     {
@@ -42,8 +44,10 @@ class Auth0UserSchema
      * Checks the give user json again the auth0 schema.
      *
      * @param string $json
-     * @return bool
+     *
      * @throws ValidationException
+     *
+     * @return bool
      */
     public static function validateJson(string $json): bool
     {
@@ -53,12 +57,12 @@ class Auth0UserSchema
 
         // Validate
         $jsonSchemaObject = json_decode(file_get_contents($path));
-        $jsonValidator = new Validator;
+        $jsonValidator = new Validator();
         $jsonObject = json_decode($json);
         $jsonValidator->validate($jsonObject, $jsonSchemaObject);
 
         // Throwing exception if needed.
-        if (!$jsonValidator->isValid()) {
+        if (! $jsonValidator->isValid()) {
             $msg = __("User mapping JSON does not validate. Violations:\n");
             foreach ($jsonValidator->getErrors() as $error) {
                 $msg .= sprintf("[%s] %s\n", $error['property'], $error['message']);
@@ -84,6 +88,7 @@ class Auth0UserSchema
      * Return the path of the created json schema file.
      *
      * @param string $jsonContent
+     *
      * @return string path
      */
     public static function createJsonFile(string $jsonContent): string

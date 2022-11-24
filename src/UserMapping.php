@@ -12,6 +12,7 @@ class UserMapping implements UserMappingJsonSchema
      * Overwrite me for mapping!
      *
      * @param User $user
+     *
      * @return JsonSchemaUser
      */
     public function mappingOfOne(User $user): JsonSchemaUser
