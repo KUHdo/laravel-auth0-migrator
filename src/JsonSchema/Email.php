@@ -2,9 +2,6 @@
 
 namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
-
-use InvalidArgumentException;
-
 class Email extends JsonSchema
 {
     protected array $required = [

@@ -2,8 +2,6 @@
 
 namespace KUHdo\LaravelAuth0Migrator\JsonSchema;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
 class User extends JsonSchema
@@ -92,9 +90,6 @@ class User extends JsonSchema
      */
     protected ?string $passwordHash = null;
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->appMetadata = new AppMetaData();
@@ -213,6 +208,7 @@ class User extends JsonSchema
      * This is needed to be aligned with json schema.
      *
      * @see JsonSchema/JsonUserSchema.json
+     *
      * @return array
      */
     public function toArray(): array

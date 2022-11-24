@@ -22,7 +22,9 @@ class JobStatusCommand extends Command
      * See short list of jobs.
      *
      * @param Auth0Migrator $migrator
+     *
      * @return int
+     *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */
     public function handle(Auth0Migrator $migrator): int
@@ -45,8 +47,9 @@ class JobStatusCommand extends Command
     /**
      * @param Auth0Migrator $migrator
      *
-     * @return array
      * @throws NoActiveJobsException
+     *
+     * @return array
      */
     public function fetchJobs(Auth0Migrator $migrator): array
     {
@@ -64,8 +67,9 @@ class JobStatusCommand extends Command
      * Checks if there are job id´s in the cache.
      * If so return them or  throw exception.
      *
-     * @return array
      * @throws NoActiveJobsException
+     *
+     * @return array
      */
     public function checkJobs(): array
     {

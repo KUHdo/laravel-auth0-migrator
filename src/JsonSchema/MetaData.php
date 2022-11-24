@@ -11,7 +11,7 @@ abstract class MetaData extends JsonSchema
     public function __construct(protected ?array $properties = null)
     {
         if ($this->isEmpty()) {
-           $this->properties = null;
+            $this->properties = null;
         }
     }
 
