@@ -2,7 +2,6 @@
 
 namespace KUHdo\LaravelAuth0Migrator\Commands;
 
-use App\Models\User;
 use Auth0\SDK\Contract\API\ManagementInterface;
 use Auth0\SDK\Exception\ArgumentException;
 use Auth0\SDK\Exception\NetworkException;
@@ -23,9 +22,12 @@ class JobErrorDetailsCommand extends Command
      * See short list of jobs.
      *
      * @param ManagementInterface $management
-     * @return int
+     *
      * @throws ArgumentException
      * @throws NetworkException
+     *
+     * @return int
+     *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */
     public function handle(ManagementInterface $management): int
@@ -38,12 +40,12 @@ class JobErrorDetailsCommand extends Command
             ->map(function (array $userArray): array {
                 $errorsText = collect($userArray['errors'])
                     ->reduce(function (string $msg, array $error): string {
-                        return $msg . $error['code'] . ': ' . $error['path'] . ' :' . $error['message'];
-                    }, "");
+                        return $msg.$error['code'].': '.$error['path'].' :'.$error['message'];
+                    }, '');
 
                 return [
-                    "email" => $userArray['user']['email'],
-                    "errors" => $errorsText,
+                    'email' => $userArray['user']['email'],
+                    'errors' => $errorsText,
                 ];
             });
 

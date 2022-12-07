@@ -3,7 +3,6 @@
 namespace KUHdo\LaravelAuth0Migrator;
 
 use Auth0\SDK\Contract\API\ManagementInterface;
-use Auth0\SDK\Contract\Auth0Interface;
 use Auth0\SDK\Exception\ArgumentException;
 use Auth0\SDK\Exception\NetworkException;
 use Illuminate\Support\Collection;
@@ -40,7 +39,7 @@ class Auth0Migrator
         if ($response->getStatusCode() !== 202) {
             throw new NetworkException(__(
                 __('Status :status: :body.'),
-                ['status' => $response->getStatusCode(), 'body' => $response->getBody(), ]
+                ['status' => $response->getStatusCode(), 'body' => $response->getBody()]
             ));
         }
 
