@@ -20,7 +20,7 @@ class JobStatusCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Shows all import jobs.';
+    protected $description = 'Shows all import jobs in the last 2 hours.';
 
 
     /**

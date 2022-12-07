@@ -15,5 +15,8 @@ return [
         // https://auth0.com/docs/libraries/auth0-php/using-the-management-api-with-auth0-php
         "audience" => env("AUTH0_AUDIENCE"),
         "organization" => env("AUTH0_ORGANIZATION_ID"),
-    ]
+    ],
+    "storage" => [
+        "path_prefix" => env("PATH_PREFIX", ""),
+    ],
 ];

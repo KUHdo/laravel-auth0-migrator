@@ -13,7 +13,8 @@ use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
 class MigrationCommand extends Command
 {
-    protected $signature = 'auth0:migrate';
+    protected $signature = 'auth0:migrate 
+                            {--D|dry-run : creates only the json schema file in storage but does not send it to auth0}';
 
     public const CHUNK_SIZE = 500;
 
@@ -51,6 +52,7 @@ class MigrationCommand extends Command
                     );
                 } catch (NetworkException | ArgumentException $e) {
                     $this->error($e->getMessage());
+                    $this->output->progressFinish();
                 } finally {
                     $this->output->progressAdvance();
                 }

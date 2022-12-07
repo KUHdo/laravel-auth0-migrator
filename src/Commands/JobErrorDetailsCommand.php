@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 
 class JobErrorDetailsCommand extends Command
 {
-    protected $signature = 'auth0:errors {id}';
+    protected $signature = 'auth0:errors {id : The job id of auth0. Starts with "job_"}';
 
     /**
      * The console command description.
