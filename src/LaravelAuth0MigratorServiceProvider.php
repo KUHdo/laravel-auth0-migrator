@@ -21,7 +21,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Perform post-registration booting of services.
-     *
      */
     public function boot(): void
     {
@@ -37,7 +36,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Console-specific booting.
-     *
      */
     protected function bootForConsole(): void
     {
@@ -54,7 +52,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Publishing the configuration file.
-     *
      */
     protected function publishConfig(): void
     {
@@ -67,13 +64,12 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
     protected function publishMigrations(): void
     {
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations')
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'auth0-migrator.migrations');
     }
 
     /**
      * Register any package services.
-     *
      */
     public function register(): void
     {
@@ -128,7 +124,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Get the services provided by the provider.
-     *
      */
     public function provides()
     {

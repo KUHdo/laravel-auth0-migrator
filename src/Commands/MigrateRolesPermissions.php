@@ -22,7 +22,7 @@ class MigrateRolesPermissions extends Command
     {
         $checkInstalled = InstalledVersions::isInstalled('spatie/permissions');
         throw_if(
-            !$checkInstalled,
+            ! $checkInstalled,
             \RuntimeException::class,
             __('Actually this packages only allows migration from \'spatie/permission\' package')
         );

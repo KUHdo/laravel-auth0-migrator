@@ -25,7 +25,6 @@ class JobErrorDetailsCommand extends Command
      * @throws ArgumentException
      * @throws NetworkException
      *
-     *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */
     public function handle(ManagementInterface $management): int

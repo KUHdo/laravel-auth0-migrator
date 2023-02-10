@@ -20,7 +20,6 @@ class Auth0UserSchema
      *
      *
      * @throws ValidationException
-     *
      */
     public static function makeJson(Collection | LazyCollection $usersChunk): string
     {
@@ -43,7 +42,6 @@ class Auth0UserSchema
      *
      *
      * @throws ValidationException
-     *
      */
     public static function validateJson(string $json): bool
     {
@@ -71,7 +69,6 @@ class Auth0UserSchema
 
     /**
      * Only return file name schema.
-     *
      */
     public static function fileName(): string
     {
@@ -81,8 +78,6 @@ class Auth0UserSchema
 
     /**
      * Return the path of the created json schema file.
-     *
-     *
      */
     public static function createJsonFile(string $jsonContent): string
     {

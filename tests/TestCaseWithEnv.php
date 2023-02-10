@@ -2,7 +2,6 @@
 
 namespace KUHdo\LaravelAuth0Migrator\Tests;
 
-use Illuminate\Foundation\Application;
 use KUHdo\LaravelAuth0Migrator\LaravelAuth0MigratorServiceProvider;
 use Orchestra\Testbench\TestCase;
 
@@ -12,8 +11,6 @@ class TestCaseWithEnv extends TestCase
 
     /**
      * Get package providers.
-     *
-     *
      */
     protected function getPackageProviders($app): array
     {
@@ -24,7 +21,6 @@ class TestCaseWithEnv extends TestCase
 
     /**
      * Define database migrations.
-     *
      */
     protected function defineDatabaseMigrations(): void
     {
@@ -33,8 +29,6 @@ class TestCaseWithEnv extends TestCase
 
     /**
      * Define environment setup.
-     *
-     *
      */
     protected function defineEnvironment($app): void
     {

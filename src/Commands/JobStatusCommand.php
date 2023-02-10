@@ -67,7 +67,6 @@ class JobStatusCommand extends Command
      * @throws NoActiveJobsException
      * @throws ArgumentException
      * @throws NetworkException
-     *
      */
     public function fetchJobs(): array
     {
@@ -86,7 +85,6 @@ class JobStatusCommand extends Command
      * If so return them or  throw exception.
      *
      * @throws NoActiveJobsException
-     *
      */
     public function checkJobs(): array
     {
