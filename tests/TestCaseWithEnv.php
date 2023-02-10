@@ -13,9 +13,7 @@ class TestCaseWithEnv extends TestCase
     /**
      * Get package providers.
      *
-     * @param  Application  $app
      *
-     * @return array<int, class-string>
      */
     protected function getPackageProviders($app): array
     {
@@ -27,7 +25,6 @@ class TestCaseWithEnv extends TestCase
     /**
      * Define database migrations.
      *
-     * @return void
      */
     protected function defineDatabaseMigrations(): void
     {
@@ -37,9 +34,7 @@ class TestCaseWithEnv extends TestCase
     /**
      * Define environment setup.
      *
-     * @param  Application  $app
      *
-     * @return void
      */
     protected function defineEnvironment($app): void
     {

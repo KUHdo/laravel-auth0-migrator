@@ -24,12 +24,8 @@ class JobStatusCommand extends Command
     /**
      * See short list of jobs.
      *
-     * @param Management $management
-     *
      * @throws ArgumentException
      * @throws NetworkException
-     *
-     * @return int
      *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */
@@ -72,7 +68,6 @@ class JobStatusCommand extends Command
      * @throws ArgumentException
      * @throws NetworkException
      *
-     * @return array
      */
     public function fetchJobs(): array
     {
@@ -92,7 +87,6 @@ class JobStatusCommand extends Command
      *
      * @throws NoActiveJobsException
      *
-     * @return array
      */
     public function checkJobs(): array
     {

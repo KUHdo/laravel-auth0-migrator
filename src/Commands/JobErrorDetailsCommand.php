@@ -21,12 +21,10 @@ class JobErrorDetailsCommand extends Command
     /**
      * See short list of jobs.
      *
-     * @param ManagementInterface $management
      *
      * @throws ArgumentException
      * @throws NetworkException
      *
-     * @return int
      *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */

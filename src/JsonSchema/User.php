@@ -209,7 +209,6 @@ class User extends JsonSchema
      *
      * @see JsonSchema/JsonUserSchema.json
      *
-     * @return array
      */
     public function toArray(): array
     {
