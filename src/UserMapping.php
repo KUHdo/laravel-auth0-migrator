@@ -10,8 +10,6 @@ class UserMapping implements UserMappingJsonSchema
 {
     /**
      * Overwrite me for mapping!
-     *
-     *
      */
     public function mappingOfOne(User $user): JsonSchemaUser
     {
