@@ -20,12 +20,12 @@
     "require": {
         "auth0/auth0-php": "^8.1",
         "guzzlehttp/guzzle": "^7.4.5",
-        "illuminate/support": "~8 || ~9 || ~10",
+        "illuminate/support": "~8 |~9|~10",
         "justinrainbow/json-schema": "^5.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
-        "orchestra/testbench": "^7.0",
+        "orchestra/testbench": "^8.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.2",
         "phpunit/phpunit": "~9.0"
