@@ -11,6 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use KUHdo\LaravelAuth0Migrator\Commands\JobErrorDetailsCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
+use KUHdo\LaravelAuth0Migrator\Commands\MigrateRolesPermissions;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
 use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
 
@@ -20,13 +21,12 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
     public function boot(): void
     {
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'kuhdo');
         $this->publishConfig();
+        $this->publishMigrations();
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -36,8 +36,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Console-specific booting.
-     *
-     * @return void
      */
     protected function bootForConsole(): void
     {
@@ -48,26 +46,30 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
             MigrationCommand::class,
             JobStatusCommand::class,
             JobErrorDetailsCommand::class,
+            MigrateRolesPermissions::class,
         ]);
     }
 
     /**
      * Publishing the configuration file.
-     *
-     * @return void
      */
     protected function publishConfig(): void
     {
         $this->publishes(
             [$this->configFilePath => config_path('auth0-migrator.php')],
-            'config'
+            'auth0-migrator.config'
         );
+    }
+
+    protected function publishMigrations(): void
+    {
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
+        ], 'auth0-migrator.migrations');
     }
 
     /**
      * Register any package services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -85,10 +87,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
         $this->app->singleton(ConfigurableContract::class, function () {
             return new SdkConfiguration(
                 domain: config('auth0-migrator.auth0.domain'),
-                clientId: config('auth0-migrator.auth0.client_id'),
-                clientSecret: config('auth0-migrator.auth0.client_secret'),
-                audience: [config('auth0-migrator.auth0.audience')],
-                cookieSecret: config('auth0-migrator.auth0.cookie_secret'),
                 managementToken: config('auth0-migrator.auth0.management_api_token')
             );
         });
@@ -122,8 +120,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
     public function provides()
     {
