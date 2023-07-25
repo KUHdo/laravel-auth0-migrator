@@ -11,11 +11,17 @@ enum Encoding: string implements Jsonable, Arrayable
     case HEX = 'hex';
     case UTF8 = 'utf8';
 
+    /**
+     * @inheritdoc
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray());
     }
 
+    /**
+     * @inheritdoc
+     */
     public function toArray()
     {
         return [

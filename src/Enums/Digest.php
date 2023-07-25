@@ -17,6 +17,9 @@ enum Digest: string implements Jsonable, Arrayable
     case sha512 = 'sha512';
     case whirlpool = 'whirlpool';
 
+    /**
+     * @inheritdoc
+     */
     public function toArray()
     {
         return [
@@ -24,6 +27,9 @@ enum Digest: string implements Jsonable, Arrayable
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function toJson($options = 0)
     {
         json_encode($this->toArray());

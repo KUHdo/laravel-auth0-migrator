@@ -10,6 +10,9 @@ enum Position: string implements Arrayable, Jsonable
     case PREFIX = 'prefix';
     case SUFFIX = 'suffix';
 
+    /**
+     * @inheritdoc
+     */
     public function toArray()
     {
         return [
@@ -18,6 +21,9 @@ enum Position: string implements Arrayable, Jsonable
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray());

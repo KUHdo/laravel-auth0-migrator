@@ -6,7 +6,8 @@ use KUHdo\LaravelAuth0Migrator\Enums\Algorithm;
 
 /**
  * A more generic way to provide the users password hash.
- * This can be used in lieu of the password_hash field when the users password hash was created with an alternate algorithm.
+ * This can be used in lieu of the password_hash field when the
+ * users password hash was created with an alternate algorithm.
  * Note that this field and password_hash are mutually exclusive.
  */
 class CustomPasswordHash extends JsonSchema
@@ -57,7 +58,7 @@ class CustomPasswordHash extends JsonSchema
 
     public function toArray()
     {
-        return  [
+        return [
             'algorithm' => $this->algorithm,
             'hash' => $this->hash,
             'salt' => $this->salt,

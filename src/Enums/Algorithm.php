@@ -18,15 +18,21 @@ enum Algorithm: string implements Jsonable, Arrayable
     case SHA512 = 'sha512';
     case PBKDF2 = 'pbkdf2';
 
+    /**
+     * @inheritdoc
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray());
     }
 
+    /**
+     * @inheritdoc
+     */
     public function toArray()
     {
-       return [
-           'alogirthm' => $this->value,
-       ];
+        return [
+            'alogirthm' => $this->value,
+        ];
     }
 }

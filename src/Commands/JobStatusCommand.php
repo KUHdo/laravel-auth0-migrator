@@ -16,20 +16,14 @@ class JobStatusCommand extends Command
 
     /**
      * The console command description.
-     *
-     * @var string
      */
     protected $description = 'Shows all import jobs in the last 2 hours.';
 
     /**
      * See short list of jobs.
      *
-     * @param Management $management
-     *
      * @throws ArgumentException
      * @throws NetworkException
-     *
-     * @return int
      *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */
@@ -46,7 +40,7 @@ class JobStatusCommand extends Command
 
         $jobs = collect($jobs)->map(function (object $job): array {
             $summary = collect($job->summary)->reduce(function ($msg, $val, $key): string {
-                return $msg .= $key.': '.$val.'; ';
+                return $msg .= $key . ': ' . $val . '; ';
             });
 
             return [
@@ -68,11 +62,9 @@ class JobStatusCommand extends Command
     }
 
     /**
-     * @throws NoActiveJobsException
      * @throws ArgumentException
      * @throws NetworkException
-     *
-     * @return array
+     * @throws NoActiveJobsException
      */
     public function fetchJobs(): array
     {
@@ -91,8 +83,6 @@ class JobStatusCommand extends Command
      * If so return them or  throw exception.
      *
      * @throws NoActiveJobsException
-     *
-     * @return array
      */
     public function checkJobs(): array
     {

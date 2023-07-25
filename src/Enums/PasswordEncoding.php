@@ -14,11 +14,17 @@ enum PasswordEncoding: string implements Jsonable, Arrayable
     case LATIN1 = 'latin1';
     case BINARY = 'binary';
 
+    /**
+     * @inheritdoc
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray());
     }
 
+    /**
+     * @inheritdoc
+     */
     public function toArray()
     {
         return [

@@ -13,20 +13,14 @@ class JobErrorDetailsCommand extends Command
 
     /**
      * The console command description.
-     *
-     * @var string
      */
     protected $description = 'Show the errors of a specific job id.';
 
     /**
      * See short list of jobs.
      *
-     * @param ManagementInterface $management
-     *
      * @throws ArgumentException
      * @throws NetworkException
-     *
-     * @return int
      *
      * @see https://auth0.com/docs/api/management/v2#!/Jobs/get_jobs_by_id
      */
@@ -40,7 +34,7 @@ class JobErrorDetailsCommand extends Command
             ->map(function (array $userArray): array {
                 $errorsText = collect($userArray['errors'])
                     ->reduce(function (string $msg, array $error): string {
-                        return $msg.$error['code'].': '.$error['path'].' :'.$error['message'];
+                        return $msg . $error['code'] . ': ' . $error['path'] . ' :' . $error['message'];
                     }, '');
 
                 return [

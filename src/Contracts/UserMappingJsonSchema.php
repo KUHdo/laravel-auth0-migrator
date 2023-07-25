@@ -13,10 +13,6 @@ interface UserMappingJsonSchema
      * of the user mapping between your user database instance (Model) and the json schema provided by auth0.
      * You can see one implementation in the UserMapping::class to get a glimpse.
      *
-     * @param User $user
-     *
-     * @return JsonSchemaUser
-     *
      * @see https://auth0.com/docs/manage-users/user-migration/bulk-user-import-database-schema-and-examples
      * @see UserMapping::mappingOfOne()
      */

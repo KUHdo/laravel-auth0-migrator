@@ -29,3 +29,7 @@ test('auth0 management client can be resolved', function () {
     $auth0MgmtClient = resolve(ManagementInterface::class);
     $this->assertInstanceOf(ManagementInterface::class, $auth0MgmtClient);
 });
+
+test('migrate roles and permissions', function () {
+     $this->artisan('auth0:migrate:roles-permissions')->assertSuccessful();
+ });

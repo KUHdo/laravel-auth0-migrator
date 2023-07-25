@@ -2,10 +2,10 @@
 
 namespace KUHdo\LaravelAuth0Migrator\Commands;
 
+use Composer\InstalledVersions;
 use Illuminate\Console\Command;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Collection;
 use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
+use Spatie\Permission\Models\Role;
 
 class MigrateRolesPermissions extends Command
 {
@@ -16,20 +16,28 @@ class MigrateRolesPermissions extends Command
      *
      * @var string
      */
-    protected $description = 'Imports all user identities to auth0 database via management api.';
+    protected $description = 'Synchronize alle roles and permission via management api.';
 
-    public function handle(Auth0Migrator $migrator): int
+    /**
+     * Execute the console command.
+     */
+    public function handle(Auth0Migrator $migrator, Role $role): int
     {
-        $count = User::count();
+        $checkInstalled = InstalledVersions::isInstalled('spatie/permissions');
+        throw_if(
+            !$checkInstalled,
+            \RuntimeException::class,
+            __('Actually this packages only allows migration from \'spatie/permission\' package')
+        );
+
+        $count = $role::count();
         $this->output->progressStart($count);
 
-        User::cursor()
-            ->chunk(MigrationCommand::CHUNK_SIZE)
-            ->map(fn (Collection $usersChunk) => $migrator->jsonFromChunk($usersChunk))
+        Role::with('permissions')->cursor()
             ->lazy()
-            ->each(function (string $chunkJson) use ($migrator) {
-                $migrator->requestUsersImport($chunkJson);
-                $this->output->progressAdvance(MigrationCommand::CHUNK_SIZE);
+            ->each(function (Role $role) use ($migrator) {
+                $migrator->syncRole($role);
+                $this->output->progressAdvance();
             });
 
         $this->output->progressFinish();

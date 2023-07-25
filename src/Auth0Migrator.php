@@ -10,14 +10,18 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\LazyCollection;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
+use Spatie\Permission\Models\Role;
 
 class Auth0Migrator
 {
+    /**
+     * Auth0Migrator constructor.
+     */
     public function __construct(protected ManagementInterface $management)
     {
     }
 
-    public function jsonFromChunk(Collection | LazyCollection $usersChunk): string
+    public function jsonFromChunk(Collection|LazyCollection $usersChunk): string
     {
         $jsonContent = Auth0UserSchema::makeJson($usersChunk);
 
@@ -69,5 +73,41 @@ class Auth0Migrator
         return json_decode(
             $this->management->jobs()->get($id)->getBody()
         );
+    }
+
+    /**
+     * @throws ArgumentException
+     * @throws NetworkException
+     */
+    public function syncRole(Role $role): array
+    {
+        // Checking that the roles exists.
+        $this->createIfNotExists($role);
+        $permissions = $role->permissions()->get()->pluck('name', 'permission_name');
+
+        $this->management->roles()->removePermissions();
+        $this->management->roles()->addPermissions($role->name, $permissions->toArray());
+    }
+
+    /**
+     * @throws ArgumentException
+     * @throws NetworkException
+     */
+    public function createIfNotExists(Role $role): ResponseInterface
+    {
+        $roleResponse = $this->management->roles()->get($role->name);
+
+        // If the role exists the permissions should be checked.
+        if ($roleResponse->getStatusCode() !== 404) {
+            throw new NetworkException(__(
+                __('Status :status: :body.'),
+                ['status' => $roleResponse->getStatusCode(), 'body' => $roleResponse->getBody()]
+            ));
+        }
+
+        $description = $role->description ?? $role->name;
+
+        return $this->management->roles()
+            ->create($role->name, ['description' => $description]);
     }
 }

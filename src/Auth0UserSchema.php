@@ -18,17 +18,13 @@ class Auth0UserSchema
     /**
      * Make a json from the users' collection.
      *
-     * @param Collection|LazyCollection $usersChunk
-     *
      * @throws ValidationException
-     *
-     * @return string
      */
-    public static function makeJson(Collection | LazyCollection $usersChunk): string
+    public static function makeJson(Collection|LazyCollection $usersChunk): string
     {
         // Mapping database users into auth0 schema with dependency injection of mapping.
         $usersChunk = $usersChunk->map(
-            fn (User $user): JsonSchemaUser => resolve(UserMappingJsonSchema::class)->mappingOfOne($user)
+            fn(User $user): JsonSchemaUser => resolve(UserMappingJsonSchema::class)->mappingOfOne($user)
         );
 
         // Check each user against json auth0 schema. If it does not match
@@ -43,17 +39,13 @@ class Auth0UserSchema
     /**
      * Checks the give user json again the auth0 schema.
      *
-     * @param string $json
-     *
      * @throws ValidationException
-     *
-     * @return bool
      */
     public static function validateJson(string $json): bool
     {
         // Path of auth0 json schema file.
         $reflector = new ReflectionClass(static::class);
-        $path = Str::beforeLast($reflector->getFileName(), '/').'/JsonSchema/JsonUserSchema.json';
+        $path = Str::beforeLast($reflector->getFileName(), '/') . '/JsonSchema/JsonUserSchema.json';
 
         // Validate
         $jsonSchemaObject = json_decode(file_get_contents($path));
@@ -62,7 +54,7 @@ class Auth0UserSchema
         $jsonValidator->validate($jsonObject, $jsonSchemaObject);
 
         // Throwing exception if needed.
-        if (! $jsonValidator->isValid()) {
+        if (!$jsonValidator->isValid()) {
             $msg = __("User mapping JSON does not validate. Violations:\n");
             foreach ($jsonValidator->getErrors() as $error) {
                 $msg .= sprintf("[%s] %s\n", $error['property'], $error['message']);
@@ -75,21 +67,15 @@ class Auth0UserSchema
 
     /**
      * Only return file name schema.
-     *
-     * @return string
      */
     public static function fileName(): string
     {
         // Filename for storage.
-        return 'users_'.now().'.json';
+        return 'users_' . now() . '.json';
     }
 
     /**
      * Return the path of the created json schema file.
-     *
-     * @param string $jsonContent
-     *
-     * @return string path
      */
     public static function createJsonFile(string $jsonContent): string
     {

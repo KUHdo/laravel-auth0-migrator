@@ -13,10 +13,11 @@ use KUHdo\LaravelAuth0Migrator\Commands\JobErrorDetailsCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
 use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
+use KUHdo\LaravelAuth0Migrator\Commands\MigrateRolesPermissions;
 
 class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 {
-    protected string $configFilePath = __DIR__.'/../config/auth0-migrator.php';
+    protected string $configFilePath = __DIR__ . '/../config/auth0-migrator.php';
 
     /**
      * Perform post-registration booting of services.
@@ -25,8 +26,9 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'kuhdo');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'kuhdo');
         $this->publishConfig();
+        $this->publishMigrations();
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -48,6 +50,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
             MigrationCommand::class,
             JobStatusCommand::class,
             JobErrorDetailsCommand::class,
+            MigrateRolesPermissions::class,
         ]);
     }
 
@@ -60,8 +63,15 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [$this->configFilePath => config_path('auth0-migrator.php')],
-            'config'
+            'auth0-migrator.config'
         );
+    }
+
+    protected function publishMigrations(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../database/migrations/' => database_path('migrations'),
+        ], 'auth0-migrator.migrations');
     }
 
     /**
@@ -105,7 +115,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
          * perform a client credentials exchange to generate one for you, so long as a client secret is configured.
          */
         $this->app->singleton(ManagementInterface::class, function (Application $app) {
-            if (! is_null(config('auth0-migrator.auth0.management_api_token'))) {
+            if (!is_null(config('auth0-migrator.auth0.management_api_token'))) {
                 $newConfiguration = $app->make(Auth0Interface::class)
                     ->configuration()
                     ->setManagementToken(config('auth0-migrator.auth0.management_api_token'));
