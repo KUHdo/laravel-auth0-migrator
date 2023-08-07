@@ -13,7 +13,7 @@ use KUHdo\LaravelAuth0Migrator\Auth0Migrator;
 
 class MigrationCommand extends Command
 {
-    protected $signature = 'auth0:migrate ' .
+    protected $signature = 'auth0:migrate '.
     '{--D|dry-run : creates only the json schema file in storage but does not send it to auth0}';
 
     public const CHUNK_SIZE = 500;
@@ -35,12 +35,12 @@ class MigrationCommand extends Command
             return static::FAILURE;
         }
 
-        $howManyChunks = (int)ceil($count / static::CHUNK_SIZE);
+        $howManyChunks = (int) ceil($count / static::CHUNK_SIZE);
         $this->output->progressStart($howManyChunks);
 
         User::lazy()
             ->chunk(self::CHUNK_SIZE)
-            ->map(fn(LazyCollection $usersChunk): string => $migrator->jsonFromChunk($usersChunk))
+            ->map(fn (LazyCollection $usersChunk): string => $migrator->jsonFromChunk($usersChunk))
             ->each(function (string $chunkJson) use ($migrator, $count) {
                 try {
                     $response = $migrator->requestUsersImport($chunkJson);
@@ -51,7 +51,7 @@ class MigrationCommand extends Command
                             ['status' => $response->getStatusCode(), 'id' => $response->getBody(), 'count' => $count]
                         )
                     );
-                } catch (NetworkException|ArgumentException $e) {
+                } catch (NetworkException | ArgumentException $e) {
                     $this->error($e->getMessage());
                     $this->output->progressFinish();
                 } finally {
