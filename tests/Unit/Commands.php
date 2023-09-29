@@ -31,5 +31,5 @@ test('auth0 management client can be resolved', function () {
 });
 
 test('migrate roles and permissions', function () {
-    $this->artisan('auth0:migrate:roles-permissions')->assertSuccessful();
-});
+     $this->artisan('auth0:migrate:roles-permissions')->assertSuccessful();
+ });
