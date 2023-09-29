@@ -8,12 +8,12 @@ use Illuminate\Contracts\Support\Jsonable;
 abstract class JsonSchema implements Arrayable, Jsonable
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     abstract public function toArray();
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function toJson($options = 0)
     {
