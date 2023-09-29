@@ -40,7 +40,7 @@ class JobStatusCommand extends Command
 
         $jobs = collect($jobs)->map(function (object $job): array {
             $summary = collect($job->summary)->reduce(function ($msg, $val, $key): string {
-                return $msg .= $key.': '.$val.'; ';
+                return $msg .= $key . ': ' . $val . '; ';
             });
 
             return [
