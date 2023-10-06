@@ -34,7 +34,7 @@ class JobErrorDetailsCommand extends Command
             ->map(function (array $userArray): array {
                 $errorsText = collect($userArray['errors'])
                     ->reduce(function (string $msg, array $error): string {
-                        return $msg . $error['code'] . ': ' . $error['path'] . ' :' . $error['message'];
+                        return $msg.$error['code'].': '.$error['path'].' :'.$error['message'];
                     }, '');
 
                 return [
