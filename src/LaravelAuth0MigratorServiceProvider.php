@@ -17,7 +17,7 @@ use KUHdo\LaravelAuth0Migrator\Commands\MigrateRolesPermissions;
 
 class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 {
-    protected string $configFilePath = __DIR__ . '/../config/auth0-migrator.php';
+    protected string $configFilePath = __DIR__.'/../config/auth0-migrator.php';
 
     /**
      * Perform post-registration booting of services.
@@ -26,7 +26,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'kuhdo');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'kuhdo');
         $this->publishConfig();
         $this->publishMigrations();
 
@@ -70,7 +70,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
     protected function publishMigrations(): void
     {
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path('migrations'),
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'auth0-migrator.migrations');
     }
 
@@ -115,7 +115,7 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
          * perform a client credentials exchange to generate one for you, so long as a client secret is configured.
          */
         $this->app->singleton(ManagementInterface::class, function (Application $app) {
-            if (!is_null(config('auth0-migrator.auth0.management_api_token'))) {
+            if (! is_null(config('auth0-migrator.auth0.management_api_token'))) {
                 $newConfiguration = $app->make(Auth0Interface::class)
                     ->configuration()
                     ->setManagementToken(config('auth0-migrator.auth0.management_api_token'));
