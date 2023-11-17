@@ -7,7 +7,7 @@ use KUHdo\LaravelAuth0Migrator\Enums\Encoding;
 class Key extends JsonSchema
 {
     protected array $required = [
-      'value',
+        'value',
     ];
 
     protected string $value;
@@ -31,8 +31,8 @@ class Key extends JsonSchema
     public function toArray()
     {
         return [
-          'value' => $this->value,
-          'encoding' => $this->encoding,
+            'value' => $this->value,
+            'encoding' => $this->encoding,
         ];
     }
 }

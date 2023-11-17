@@ -208,8 +208,6 @@ class User extends JsonSchema
      * This is needed to be aligned with json schema.
      *
      * @see JsonSchema/JsonUserSchema.json
-     *
-     * @return array
      */
     public function toArray(): array
     {

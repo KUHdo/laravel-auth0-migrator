@@ -5,14 +5,14 @@ namespace KUHdo\LaravelAuth0Migrator\Enums;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-enum Encoding: string implements Jsonable, Arrayable
+enum Encoding: string implements Arrayable, Jsonable
 {
     case BASE64 = 'base64';
     case HEX = 'hex';
     case UTF8 = 'utf8';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toJson($options = 0)
     {
@@ -20,12 +20,12 @@ enum Encoding: string implements Jsonable, Arrayable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toArray()
     {
         return [
-          'encoding' => $this->value,
+            'encoding' => $this->value,
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace KUHdo\LaravelAuth0Migrator\Enums;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-enum PasswordEncoding: string implements Jsonable, Arrayable
+enum PasswordEncoding: string implements Arrayable, Jsonable
 {
     case ASCII = 'ascii';
     case UTF8 = 'utf8';
@@ -15,7 +15,7 @@ enum PasswordEncoding: string implements Jsonable, Arrayable
     case BINARY = 'binary';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toJson($options = 0)
     {
@@ -23,12 +23,12 @@ enum PasswordEncoding: string implements Jsonable, Arrayable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toArray()
     {
         return [
-          'encoding' => $this->value,
+            'encoding' => $this->value,
         ];
     }
 }

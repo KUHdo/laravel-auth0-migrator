@@ -16,7 +16,7 @@ class Totp extends JsonSchema
     public function toArray()
     {
         return [
-          'secret' => $this->secret,
+            'secret' => $this->secret,
         ];
     }
 }

@@ -59,10 +59,10 @@ class Hash extends JsonSchema
     public function toArray()
     {
         return [
-           'value' => $this->value,
-           'encoding' => $this->encoding,
-           'digest' => $this->digest,
-           'key' => $this->key,
-       ];
+            'value' => $this->value,
+            'encoding' => $this->encoding,
+            'digest' => $this->digest,
+            'key' => $this->key,
+        ];
     }
 }

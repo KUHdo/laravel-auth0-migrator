@@ -11,9 +11,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use KUHdo\LaravelAuth0Migrator\Commands\JobErrorDetailsCommand;
 use KUHdo\LaravelAuth0Migrator\Commands\JobStatusCommand;
+use KUHdo\LaravelAuth0Migrator\Commands\MigrateRolesPermissions;
 use KUHdo\LaravelAuth0Migrator\Commands\MigrationCommand;
 use KUHdo\LaravelAuth0Migrator\Contracts\UserMappingJsonSchema;
-use KUHdo\LaravelAuth0Migrator\Commands\MigrateRolesPermissions;
 
 class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 {
@@ -21,8 +21,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -38,8 +36,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Console-specific booting.
-     *
-     * @return void
      */
     protected function bootForConsole(): void
     {
@@ -56,8 +52,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Publishing the configuration file.
-     *
-     * @return void
      */
     protected function publishConfig(): void
     {
@@ -76,8 +70,6 @@ class LaravelAuth0MigratorServiceProvider extends ServiceProvider
 
     /**
      * Register any package services.
-     *
-     * @return void
      */
     public function register(): void
     {

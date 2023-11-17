@@ -5,7 +5,7 @@ namespace KUHdo\LaravelAuth0Migrator\Enums;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-enum Algorithm: string implements Jsonable, Arrayable
+enum Algorithm: string implements Arrayable, Jsonable
 {
     case ARGON2 = 'argon2';
     case BCRYPT = 'bcrypt';
@@ -19,7 +19,7 @@ enum Algorithm: string implements Jsonable, Arrayable
     case PBKDF2 = 'pbkdf2';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toJson($options = 0)
     {
@@ -27,7 +27,7 @@ enum Algorithm: string implements Jsonable, Arrayable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toArray()
     {

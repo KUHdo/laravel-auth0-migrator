@@ -5,7 +5,7 @@ namespace KUHdo\LaravelAuth0Migrator\Enums;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-enum Digest: string implements Jsonable, Arrayable
+enum Digest: string implements Arrayable, Jsonable
 {
     case md4 = 'md4';
     case md5 = 'md5';
@@ -18,17 +18,17 @@ enum Digest: string implements Jsonable, Arrayable
     case whirlpool = 'whirlpool';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toArray()
     {
         return [
-            'digest' => $this->value
+            'digest' => $this->value,
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toJson($options = 0)
     {

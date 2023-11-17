@@ -11,18 +11,18 @@ enum Position: string implements Arrayable, Jsonable
     case SUFFIX = 'suffix';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toArray()
     {
         return [
 
-            'position' => $this->value
+            'position' => $this->value,
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function toJson($options = 0)
     {

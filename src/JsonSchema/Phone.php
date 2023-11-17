@@ -26,7 +26,7 @@ class Phone extends JsonSchema
 
     public function toArray()
     {
-        return  [
+        return [
             'value' => $this->value,
         ];
     }
