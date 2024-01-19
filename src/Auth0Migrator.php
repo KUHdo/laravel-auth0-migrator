@@ -21,7 +21,7 @@ class Auth0Migrator
     {
     }
 
-    public function jsonFromChunk(Collection|LazyCollection $usersChunk): string
+    public function jsonFromChunk(Collection | LazyCollection $usersChunk): string
     {
         $jsonContent = Auth0UserSchema::makeJson($usersChunk);
 
