@@ -14,6 +14,7 @@ class TestCaseWithEnv extends TestCase
      * Get package providers.
      *
      * @param  Application  $app
+     *
      * @return array<int, class-string>
      */
     protected function getPackageProviders($app): array
