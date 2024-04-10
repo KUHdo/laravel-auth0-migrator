@@ -20,7 +20,7 @@ class Auth0UserSchema
      *
      * @throws ValidationException
      */
-    public static function makeJson(Collection | LazyCollection $usersChunk): string
+    public static function makeJson(Collection|LazyCollection $usersChunk): string
     {
         // Mapping database users into auth0 schema with dependency injection of mapping.
         $usersChunk = $usersChunk->map(
