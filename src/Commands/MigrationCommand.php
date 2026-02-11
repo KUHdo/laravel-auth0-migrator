@@ -51,7 +51,7 @@ class MigrationCommand extends Command
                             ['status' => $response->getStatusCode(), 'id' => $response->getBody(), 'count' => $count]
                         )
                     );
-                } catch (NetworkException|ArgumentException $e) {
+                } catch (NetworkException | ArgumentException $e) {
                     $this->error($e->getMessage());
                     $this->output->progressFinish();
                 } finally {
