@@ -24,11 +24,11 @@
         "justinrainbow/json-schema": "^5.2"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.12",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "phpunit/phpunit": "^10.5"
+        "barryvdh/laravel-ide-helper": "^3.5",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
